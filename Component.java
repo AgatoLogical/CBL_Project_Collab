@@ -2,8 +2,15 @@
 
 public class Component {
     public String name;
-    public static final int value = 0;
-    // parents
+    public final int value = 0;
+    public String parent1;
+    public String parent2;
+
+    public Component(String initParent1, String initParent2){
+        this.parent1 = initParent1;
+        this.parent2 = initParent2;
+    }
+
     // icon
 
     // category
