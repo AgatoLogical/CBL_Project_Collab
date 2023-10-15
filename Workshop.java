@@ -9,6 +9,8 @@ public class Workshop extends JPanel{
     static final int SLOTS_ON_PAGE = 30; 
     static final int PAGES_NUMBER = 1;
 
+    JLayeredPane layeredPane = new JLayeredPane();
+
     JPanel firstShelf = new JPanel();
     JPanel secondShelf = new JPanel();
     JPanel thirdShelf = new JPanel();
@@ -23,6 +25,19 @@ public class Workshop extends JPanel{
 
     JLabel tableLabel = new JLabel();
 
+    //JPanel ivyPanel = new JPanel();
+    JPanel[] ivyPanel = new JPanel[25];
+    ImageIcon ivy = new ImageIcon("ivy_horizontal.png");
+    JLabel[] ivyLabel = new JLabel[25];
+
+    JPanel ivyTablePanel = new JPanel();
+    ImageIcon ivyTable = new ImageIcon("ivy_vertical.png");
+    JLabel ivyTableLabel = new JLabel();
+
+    JPanel ivyTablePanel2 = new JPanel();
+    ImageIcon ivyTable2 = new ImageIcon("ivy_vertical2.png");
+    JLabel ivyTableLabel2 = new JLabel();
+
     Workshop(){
 
         Slot[][] slots = new Slot[SLOTS_ON_PAGE][PAGES_NUMBER];
@@ -33,7 +48,9 @@ public class Workshop extends JPanel{
 
         this.setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         this.setLayout(null);
-        this.setBackground(new Color(191, 150, 111));
+        this.setBackground(new Color(150, 119, 89));
+
+        layeredPane.setBounds(0, 0, 1200, 800);
 
         brownShelf1.setBackground(new Color(74, 38, 3));
         brownShelf1.setBounds(0, 115, 1150, 15);
@@ -90,11 +107,67 @@ public class Workshop extends JPanel{
         tablePanel.setBounds(300, 450, 600, 600);
         tablePanel.add(tableLabel);
 
+        /*ivyLabel.setIcon(ivy);
+        ivyLabel.setVerticalAlignment(JLabel.CENTER);
+        ivyLabel.setHorizontalAlignment(JLabel.CENTER);*/
 
-        this.add(firstShelf);
-        this.add(secondShelf);
-        this.add(thirdShelf);
-        this.add(tablePanel);
+        /*ivyPanel.setLayout(new BorderLayout());
+        ivyPanel.setBackground(new Color(0,0,0,0));
+        ivyPanel.setBounds(25, 115, 150, 60);
+        ivyPanel.add(ivyLabel);*/
+
+        ivyTableLabel.setIcon(ivyTable);
+        ivyTableLabel.setVerticalAlignment(JLabel.CENTER);
+        ivyTableLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        ivyTablePanel.setLayout(new BorderLayout());
+        ivyTablePanel.setBackground(new Color(0,0,0,0));
+        ivyTablePanel.setBounds(270, 590, 155, 200);
+        ivyTablePanel.add(ivyTableLabel);
+
+        ivyTableLabel2.setIcon(ivyTable2);
+        ivyTableLabel2.setVerticalAlignment(JLabel.CENTER);
+        ivyTableLabel2.setHorizontalAlignment(JLabel.CENTER);
+
+        ivyTablePanel2.setLayout(new BorderLayout());
+        ivyTablePanel2.setBackground(new Color(0,0,0,0));
+        ivyTablePanel2.setBounds(370, 620, 155, 200);
+        ivyTablePanel2.add(ivyTableLabel2);
+
+
+        layeredPane.add(firstShelf, Integer.valueOf(0));
+        layeredPane.add(secondShelf, Integer.valueOf(0));
+        layeredPane.add(thirdShelf, Integer.valueOf(0));
+        layeredPane.add(tablePanel, Integer.valueOf(0));
+        layeredPane.add(ivyTablePanel, Integer.valueOf(1));
+        layeredPane.add(ivyTablePanel2, Integer.valueOf(1));
+        //layeredPane.add(ivyPanel, Integer.valueOf(1));
+
+        int xIvy = 5;
+        int yIvy = 115;
+        for (int i = 0; i < 25; ++i){
+            ivyLabel[i] = new JLabel();
+            ivyLabel[i].setIcon(ivy);
+            ivyLabel[i].setVerticalAlignment(JLabel.CENTER);
+            ivyLabel[i].setHorizontalAlignment(JLabel.CENTER);
+            ivyPanel[i] = new JPanel();
+            ivyPanel[i].setLayout(new BorderLayout());
+            ivyPanel[i].setBackground(new Color(0,0,0,0));
+            ivyPanel[i].setBounds(xIvy, yIvy, 150, 60);
+            ivyPanel[i].add(ivyLabel[i]);
+            layeredPane.add(ivyPanel[i], Integer.valueOf(1));
+            xIvy += 150;
+
+            if (i == 8) {
+                xIvy = 5;
+                yIvy += 140; 
+            } else if (i == 16) {
+                xIvy = 5;
+                yIvy += 130;
+            }
+        }
+
+        this.add(layeredPane);
 
         startGame();
     }
