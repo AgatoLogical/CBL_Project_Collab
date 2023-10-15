@@ -1,17 +1,18 @@
 import java.awt.Point;
+import javax.swing.JPanel;
 
-public class Slot {
+public class Slot extends JPanel{
 
     public Point leftCorner;
-    public static final int length = 0;
+    public static final int length = 50;
     public int pageID;
     public boolean isEmpty;
     public Component component;
 
-    public Slot(Point corner, int page, Component item) {
+    public Slot(Point corner, int page) {
         this.leftCorner = corner;
         this.pageID = page;
-        this.component = item;
+        this.isEmpty = true;
     }
 
     public void add(Point corner, int page, Component item) {
