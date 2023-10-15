@@ -17,7 +17,14 @@ public class Workshop extends JPanel{
     JPanel brownShelf2 = new JPanel();
     JPanel brownShelf3 = new JPanel();
 
+    JPanel tablePanel = new JPanel();
+
+    ImageIcon table = new ImageIcon("table.png");
+
+    JLabel tableLabel = new JLabel();
+
     Workshop(){
+
         Slot[][] slots = new Slot[SLOTS_ON_PAGE][PAGES_NUMBER];
         int x = 17;
         int y = 15;
@@ -74,9 +81,20 @@ public class Workshop extends JPanel{
             }
         }
 
+        tableLabel.setIcon(table);
+        tableLabel.setVerticalAlignment(JLabel.CENTER);
+        tableLabel.setHorizontalAlignment(JLabel.CENTER);
+        
+        tablePanel.setLayout(new BorderLayout());
+        tablePanel.setBackground(new Color(0,0,0,0));
+        tablePanel.setBounds(300, 450, 600, 600);
+        tablePanel.add(tableLabel);
+
+
         this.add(firstShelf);
         this.add(secondShelf);
         this.add(thirdShelf);
+        this.add(tablePanel);
 
         startGame();
     }
