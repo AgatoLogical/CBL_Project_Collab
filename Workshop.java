@@ -38,9 +38,13 @@ public class Workshop extends JPanel{
     ImageIcon ivyTable2 = new ImageIcon("ivy_vertical2.png");
     JLabel ivyTableLabel2 = new JLabel();
 
+    Slot[][] slots = new Slot[SLOTS_ON_PAGE][PAGES_NUMBER];
+
+    Slot[] tableSlots = new Slot[2];
+
     Workshop(){
 
-        Slot[][] slots = new Slot[SLOTS_ON_PAGE][PAGES_NUMBER];
+        
         int x = 17;
         int y = 15;
         int counterForCoord = 0;
@@ -107,6 +111,14 @@ public class Workshop extends JPanel{
         tablePanel.setBounds(300, 450, 600, 600);
         tablePanel.add(tableLabel);
 
+        tableSlots[0] = new Slot(new Point(470, 539), -1);
+        tableSlots[0].setBackground(new Color(0,0,0,30));
+        tableSlots[0].setBounds((int) tableSlots[0].leftCorner.getX(), (int) tableSlots[0].leftCorner.getY(), 100, 100);
+        
+        tableSlots[1] = new Slot(new Point(628, 539), -1);
+        tableSlots[1].setBackground(new Color(0,0,0,30));
+        tableSlots[1].setBounds((int) tableSlots[1].leftCorner.getX(), (int) tableSlots[1].leftCorner.getY(), 100, 100);
+
         /*ivyLabel.setIcon(ivy);
         ivyLabel.setVerticalAlignment(JLabel.CENTER);
         ivyLabel.setHorizontalAlignment(JLabel.CENTER);*/
@@ -141,6 +153,8 @@ public class Workshop extends JPanel{
         layeredPane.add(tablePanel, Integer.valueOf(0));
         layeredPane.add(ivyTablePanel, Integer.valueOf(1));
         layeredPane.add(ivyTablePanel2, Integer.valueOf(1));
+        layeredPane.add(tableSlots[0], Integer.valueOf(1));
+        layeredPane.add(tableSlots[1], Integer.valueOf(1));
         //layeredPane.add(ivyPanel, Integer.valueOf(1));
 
         int xIvy = 5;
