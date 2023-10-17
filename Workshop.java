@@ -39,7 +39,7 @@ public class Workshop extends JPanel{
     ImageIcon ivyTable2 = new ImageIcon("ivy_vertical2.png");
     JLabel ivyTableLabel2 = new JLabel();
 
-    Slot[][] slots = new Slot[SLOTS_ON_PAGE][PAGES_NUMBER];
+    Slot[][] slots = new Slot[SLOTS_ON_PAGE + 4][PAGES_NUMBER];
 
     Slot[] tableSlots = new Slot[2];
 
@@ -106,6 +106,16 @@ public class Workshop extends JPanel{
 
                 counterForCoord++;
             }
+        }
+
+        x = 795;
+        y = 445;
+        for (int i = 0; i < 4; ++i){
+            slots[i][0] = new Slot(new Point(x, y), 0);                
+            slots[i][0].setBackground(new Color(0,0,0,30));
+            slots[i][0].setBounds((int) slots[i][0].leftCorner.getX(), (int) slots[i][0].leftCorner.getY(), 80, 80);
+            layeredPane.add(slots[i][0], Integer.valueOf(0));
+            x += 100;
         }
 
         tableLabel.setIcon(table);
