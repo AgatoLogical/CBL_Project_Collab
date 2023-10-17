@@ -10,7 +10,7 @@ public class Workshop extends JPanel{
     static final int SLOTS_ON_PAGE = 30; 
     static final int PAGES_NUMBER = 1;
 
-    JLayeredPane layeredPane = new JLayeredPane();
+    public JLayeredPane layeredPane = new JLayeredPane();
 
     JPanel firstShelf = new JPanel();
     JPanel secondShelf = new JPanel();
@@ -110,7 +110,7 @@ public class Workshop extends JPanel{
 
         x = 795;
         y = 445;
-        for (int i = 0; i < 4; ++i){
+        for (int i = 30; i < 34; ++i){
             slots[i][0] = new Slot(new Point(x, y), 0);                
             slots[i][0].setBackground(new Color(0,0,0,30));
             slots[i][0].setBounds((int) slots[i][0].leftCorner.getX(), (int) slots[i][0].leftCorner.getY(), 80, 80);
@@ -221,16 +221,68 @@ public class Workshop extends JPanel{
 
     // other variables for rendering
     public void init() {
-        Component dust = new Component("air", "earth");
-        Component land = new Component("earth", "stone");
-        Component lava = new Component("earth", "fire");
-        Component stone = new Component("air", "pressure");
-        Component smoke = new Component("fire", "air");
-        Component steam = new Component("water", "lava");
-        Component pressure = new Component("air", "air");
+
+        //-----------------------------NATURE--------------------------------//
+        Component air = new Component("null", "null", new ImageIcon("icons/air.png"));
+        air.setVisible(true);
+        slots[30][0].add(air);
+        Component earth = new Component("null", "null", new ImageIcon("icons/earth.png"));
+        earth.setVisible(true);
+        slots[31][0].add(earth);
+        Component fire = new Component("null", "null", new ImageIcon("icons/fire.png"));
+        fire.setVisible(true);
+        slots[32][0].add(fire);
+        Component water = new Component("null", "null", new ImageIcon("icons/water.png"));
+        water.setVisible(true);
+        slots[33][0].add(water);
+        Component lava = new Component("earth", "fire", new ImageIcon("icons/lava.png"));
+        lava.setVisible(true);
+        slots[0][0].add(lava);
+        Component plant = new Component("earth", "water", new ImageIcon("icons/plant.png"));
+        plant.setVisible(true);
+        slots[1][0].add(plant);
+        Component tree = new Component("plant", "water", new ImageIcon("icons/tree.png"));
+        tree.setVisible(true);
+        slots[2][0].add(tree);
+        Component wood = new Component("tree", "earth", new ImageIcon("icons/wood.png"));
+        wood.setVisible(true);
+        slots[3][0].add(wood);
+        /*Component sand = new Component("stone", "air");
+        Component mud = new Component("earth", "water");
+        Component dust = new Component("earth", "air");
+        Component energy = new Component("air", "fire");
+
+        //-----------------------------STONE AGE--------------------------------//
+        Component stone = new Component("air", "lava");
+        Component boat = new Component("water", "wood");
+        Component clay = new Component("sand", "mud");
+        Component pottery = new Component("clay", "fire");
+        Component tools = new Component("wood", "stone");
+        Component wheel = new Component("wood", "tools");
+        Component farming = new Component("earth", "tools");
+        Component gold = new Component("stone", "tools");
+
+        //-----------------------------IRON AGE--------------------------------//
+        Component metal = new Component("air", "lava");
+        Component sword = new Component("water", "wood");
+        Component waterWheel = new Component("sand", "mud");
+        Component glass = new Component("clay", "fire");
+        Component mirror = new Component("wood", "stone");
+        Component coins = new Component("wood", "tools");
+
+        //-----------------------------MODERN--------------------------------//
+        Component gunpowder = new Component("fire", "dust");
+        Component explosion = new Component("gunpowder", "fire");
+        Component atomicBomb = new Component("energy", "explosion");
+        Component electricity = new Component("metal", "energy");
+        Component computer = new Component("tools", "electricity");
+        Component lightbulb = new Component("electricity", "glass");
+        Component paper = new Component("wood", "pressure");
+        Component money = new Component("paper", "gold");*/
+
     }
 
-    public void render() {
+    public void showComponents() {
         //new GameFrame();
 
         // uses moveItem

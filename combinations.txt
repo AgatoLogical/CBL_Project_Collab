@@ -1,15 +1,15 @@
 NATURE: 
-    1. Air
-    2. Earth
-    3. Fire
-    4. Water
-    5. Lava = Earth + Fire
-    6. Plant = Earth + Water
-    7. Tree = Plant + Water
-    8. Wood = Tree + Earth
+    1. Air <a href="https://www.freepik.com/search?format=search&last_filter=query&last_value=air&query=air&shape=lineal-color&type=icon">Icon by Freepik</a>
+    2. Earth <a href="https://www.freepik.com/search?format=search&last_filter=query&last_value=earth&query=earth&shape=lineal-color&type=icon">Icon by Freepik</a>
+    3. Fire <a href="https://www.freepik.com/search?format=search&last_filter=query&last_value=fire&query=fire&shape=lineal-color&type=icon">Icon by Freepik</a>
+    4. Water <a href="https://www.freepik.com/search?format=search&last_filter=query&last_value=water&query=water&type=icon">Icon by Freepik</a>
+    5. Lava = Earth + Fire <a href="https://www.flaticon.com/free-icons/lava" title="lava icons">Lava icons created by Paul J. - Flaticon</a>
+    6. Plant = Earth + Water <a href="https://www.freepik.com/search?format=search&last_filter=query&last_value=plant&query=plant&type=icon">Icon by Freepik</a>
+    7. Tree = Plant + Water <a href="https://www.flaticon.com/free-icons/tree" title="tree icons">Tree icons created by justicon - Flaticon</a>
+    8. Wood = Tree + Earth <a href="https://www.flaticon.com/free-icons/wood" title="wood icons">Wood icons created by Freepik - Flaticon</a>
     9. Sand = Stone + Air
     10. Mud = Earth + Water
-    11. Dust = Eart + Air
+    11. Dust = Earth + Air
     12. Energy = Air + Fire
 
 STONE AGE:
@@ -38,6 +38,6 @@ MODERN:
     5. Computer = Tools + Electricity
     6. Lightbulb = Electricity + Glass
     7. Paper = Wood + Pressure
-    8. Money = Paper + Gols
+    8. Money = Paper + Gold
 
 
