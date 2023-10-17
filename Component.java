@@ -1,6 +1,6 @@
-//import 
+import javax.swing.JLabel;
 
-public class Component {
+public class Component extends JLabel{
     public String name;
     public final int value = 0;
     public String parent1;

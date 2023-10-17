@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 
 public class Workshop extends JPanel{
@@ -42,8 +43,13 @@ public class Workshop extends JPanel{
 
     Slot[] tableSlots = new Slot[2];
 
-    Workshop(){
+    JButton bookButton = new JButton();
+    JButton shopButton = new JButton();
 
+    ImageIcon bookIcon = new ImageIcon("recipe_book.png");
+    ImageIcon shopIcon = new ImageIcon("shop.png");
+
+    Workshop(){
         
         int x = 17;
         int y = 15;
@@ -146,6 +152,17 @@ public class Workshop extends JPanel{
         ivyTablePanel2.setBounds(370, 620, 155, 200);
         ivyTablePanel2.add(ivyTableLabel2);
 
+        bookButton.setBounds(25, 680, 100, 100);
+        bookButton.setFocusable(false);
+        bookButton.setIcon(bookIcon);
+        Border darkBorder = BorderFactory.createLineBorder(new Color(54, 31, 10));
+        bookButton.setBackground(new Color(112, 81, 52));
+        bookButton.setBorder(darkBorder);
+        shopButton.setBounds(150, 680, 100, 100);
+        shopButton.setFocusable(false);
+        shopButton.setIcon(shopIcon);
+        shopButton.setBackground(new Color(112, 81, 52));
+        shopButton.setBorder(darkBorder);
 
         layeredPane.add(firstShelf, Integer.valueOf(0));
         layeredPane.add(secondShelf, Integer.valueOf(0));
@@ -155,6 +172,8 @@ public class Workshop extends JPanel{
         layeredPane.add(ivyTablePanel2, Integer.valueOf(1));
         layeredPane.add(tableSlots[0], Integer.valueOf(1));
         layeredPane.add(tableSlots[1], Integer.valueOf(1));
+        layeredPane.add(bookButton, Integer.valueOf(0));
+        layeredPane.add(shopButton, Integer.valueOf(0));
         //layeredPane.add(ivyPanel, Integer.valueOf(1));
 
         int xIvy = 5;
@@ -202,7 +221,7 @@ public class Workshop extends JPanel{
     }
 
     public void render() {
-        new GameFrame();
+        //new GameFrame();
 
         // uses moveItem
         // uses goToRecipeBook?

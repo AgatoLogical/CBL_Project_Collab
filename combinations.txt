@@ -1,0 +1,43 @@
+NATURE: 
+    1. Air
+    2. Earth
+    3. Fire
+    4. Water
+    5. Lava = Earth + Fire
+    6. Plant = Earth + Water
+    7. Tree = Plant + Water
+    8. Wood = Tree + Earth
+    9. Sand = Stone + Air
+    10. Mud = Earth + Water
+    11. Dust = Eart + Air
+    12. Energy = Air + Fire
+
+STONE AGE:
+    1. Stone = Air + Lava
+    2. Boat = Water + Wood
+    3. Clay = Sand + Mud
+    4. Pottery = Clay + Fire
+    5. Tools = Wood + Stone
+    6. Wheel = Wood + Tools
+    7. Farming = Earth + Tools
+    8. Gold = Stone + Tools
+
+IRON AGE:
+    1. Metal = Fire + Stone
+    2. Sword = Metal + Wood
+    3. Water Wheel = Water + Wheel
+    4. Glass = Sand + Fire
+    5. Mirror = Glass + Metal
+    6. Coins = Gold + Tools
+
+MODERN:
+    1. Gunpowder = Fire + Dust
+    2. Explosion = Gunpowder + Fire
+    3. Atomic Bomb = Energy + Explosion 
+    4. Electricity = Metal + Energy
+    5. Computer = Tools + Electricity
+    6. Lightbulb = Electricity + Glass
+    7. Paper = Wood + Pressure
+    8. Money = Paper + Gols
+
+
