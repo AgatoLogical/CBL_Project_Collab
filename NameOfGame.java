@@ -2,17 +2,17 @@ import java.awt.*;
 import javax.swing.*;
 
 public class NameOfGame {
+    /*void startPage() {
 
-    Workshop workShop = new Workshop();
+    }*/
 
-    void startPage() {
+    public static void main(String[] args) {
+        new GameFrame();
 
-    }
-
-    public void main(String[] args) {
+        /*Workshop workShop = new Workshop();
         NameOfGame game = new NameOfGame();
-        game.startPage();
+        //game.startPage();
         workShop.init();
-        workShop.render();
+        workShop.render();*/
     }
 }
