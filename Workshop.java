@@ -223,28 +223,36 @@ public class Workshop extends JPanel{
     public void init() {
 
         //-----------------------------NATURE--------------------------------//
-        Component air = new Component("null", "null", new ImageIcon("icons/air.png"));
+        Component air = new Component(new ImageIcon("icons/air.png"));
         air.setVisible(true);
         slots[30][0].add(air);
-        Component earth = new Component("null", "null", new ImageIcon("icons/earth.png"));
+        Component earth = new Component(new ImageIcon("icons/earth.png"));
         earth.setVisible(true);
         slots[31][0].add(earth);
-        Component fire = new Component("null", "null", new ImageIcon("icons/fire.png"));
+        Component fire = new Component(new ImageIcon("icons/fire.png"));
         fire.setVisible(true);
         slots[32][0].add(fire);
-        Component water = new Component("null", "null", new ImageIcon("icons/water.png"));
+        Component water = new Component(new ImageIcon("icons/water.png"));
         water.setVisible(true);
         slots[33][0].add(water);
-        Component lava = new Component("earth", "fire", new ImageIcon("icons/lava.png"));
+        Component lava = new Component(new ImageIcon("icons/lava.png"));
+        Combination lavaCombination = new Combination(earth, fire, lava);
+        CombinationManager.addCombination(lavaCombination);
         lava.setVisible(true);
         slots[0][0].add(lava);
-        Component plant = new Component("earth", "water", new ImageIcon("icons/plant.png"));
+        Component plant = new Component(new ImageIcon("icons/plant.png"));
+        Combination plantCombination = new Combination(earth, water, plant);
+        CombinationManager.addCombination(plantCombination);
         plant.setVisible(true);
         slots[1][0].add(plant);
-        Component tree = new Component("plant", "water", new ImageIcon("icons/tree.png"));
+        Component tree = new Component(new ImageIcon("icons/tree.png"));
+        Combination treeCombination = new Combination(plant, water, tree);
+        CombinationManager.addCombination(treeCombination);
         tree.setVisible(true);
         slots[2][0].add(tree);
-        Component wood = new Component("tree", "earth", new ImageIcon("icons/wood.png"));
+        Component wood = new Component(new ImageIcon("icons/wood.png"));
+        Combination woodCombination = new Combination(earth, tree, wood);
+        CombinationManager.addCombination(woodCombination);
         wood.setVisible(true);
         slots[3][0].add(wood);
         /*Component sand = new Component("stone", "air");
