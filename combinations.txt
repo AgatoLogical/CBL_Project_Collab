@@ -8,7 +8,7 @@ NATURE:
     7. Tree = Plant + Water <a href="https://www.flaticon.com/free-icons/tree" title="tree icons">Tree icons created by justicon - Flaticon</a>
     8. Wood = Tree + Earth <a href="https://www.flaticon.com/free-icons/wood" title="wood icons">Wood icons created by Freepik - Flaticon</a>
     9. Sand = Stone + Air <a href="https://www.flaticon.com/free-icons/sand" title="sand icons">Sand icons created by Freepik - Flaticon</a>
-    10. Mud = Earth + Water <a href="https://www.flaticon.com/free-icons/ecology-and-environment" title="ecology and environment icons">Ecology and environment icons created by Marz Gallery - Flaticon</a>
+    10. Mud = Sand + Water <a href="https://www.flaticon.com/free-icons/ecology-and-environment" title="ecology and environment icons">Ecology and environment icons created by Marz Gallery - Flaticon</a>
     11. Dust = Earth + Air <a href="https://www.flaticon.com/free-icons/dust" title="dust icons">Dust icons created by Freepik - Flaticon</a>
     12. Energy = Air + Fire <a href="https://www.freepik.com/search?format=search&last_filter=page&last_value=2&page=2&query=e%3Dmc2&type=icon">Icon by Freepik</a>
 
@@ -38,6 +38,5 @@ MODERN:
     5. Computer = Tools + Electricity <a href="https://www.flaticon.com/free-icons/computer" title="computer icons">Computer icons created by Freepik - Flaticon</a>
     6. Lightbulb = Electricity + Glass <a href="https://www.flaticon.com/free-icons/idea" title="idea icons">Idea icons created by Freepik - Flaticon</a>
     7. Paper = Wood + Pressure <a href="https://www.flaticon.com/free-icons/paper" title="paper icons">Paper icons created by Freepik - Flaticon</a>
-    8. Money = Paper + Gold <a href="https://www.flaticon.com/free-icons/cash" title="cash icons">Cash icons created by Freepik - Flaticon</a>
 
 
