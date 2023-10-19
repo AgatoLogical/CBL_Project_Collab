@@ -15,13 +15,14 @@ public class MouseTracker extends JPanel {
     static final int height = 100;
 
     MouseTracker() {
-        mouseSlot.setVisible(true);
+        this.add(mouseSlot);
+        this.setVisible(true);
         // track mouse and make the slot follow it
 
         Reactor reactor = new Reactor();
-        mouseSlot.addMouseListener(reactor);
+        this.addMouseListener(reactor);
         DragReactor drag = new DragReactor();
-        mouseSlot.addMouseMotionListener(drag);
+        this.addMouseMotionListener(drag);
         System.out.println("mouseslot is created");
     }
 
