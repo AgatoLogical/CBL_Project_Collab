@@ -1,5 +1,5 @@
 import java.awt.Point;
-import java.util.ArrayList;
+import java.awt.event.MouseAdapter;
 import java.util.List;
 
 import javax.swing.JComponent;
@@ -11,27 +11,24 @@ public class TableSlot extends Slot {
 
     public TableSlot(Point corner, int page) {
         super(corner, page);
-        // TODO Auto-generated constructor stub
+
+        this.removeMouseListener(this.pressReactor);
+        TablePressReactor tablePressReactor = new TablePressReactor();
+        this.addMouseListener(tablePressReactor);
     }
 
-    private class TablePressReactor extends PressReactor {
+    public class TablePressReactor extends MouseAdapter {
 
-        @Override
         public void mousePressed(MouseEvent e) {
+
+            System.out.println("mouse pressed in tableslot");
             MouseTracker mouse = new MouseTracker();
 
             // getting the component from the slot?????????????
-            List<JLabel> list = new ArrayList<JLabel>();
-            JComponent[] components = panel.getComponents();
+            mouse.mouseSlot.add(component);
+            System.out.println("mouse has component: " + mouse.mouseSlot.component.parent1);
 
-            for (JComponent component : components) {
-                if (component.getClass().equals(JLabel.class)) {
-                    list.add((JLabel) component);
-                }
-            }
-            mouse.mouseSlot.add(list.get(0));
-
-            this.removeAll();
+            TableSlot.this.remove(TableSlot.this.component);
 
             // add the other stuff, background etc
         }

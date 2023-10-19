@@ -43,7 +43,7 @@ public class Workshop extends JPanel {
 
     Slot[] tableSlots = new TableSlot[2];
 
-    MouseTracker mouse = new MouseTracker();
+    public static MouseTracker mouse = new MouseTracker();
 
     JButton bookButton = new JButton();
     JButton shopButton = new JButton();
@@ -138,7 +138,7 @@ public class Workshop extends JPanel {
         tableSlots[1].setBackground(new Color(0, 0, 0, 30));
         tableSlots[1].setBounds((int) tableSlots[1].leftCorner.getX(), (int) tableSlots[1].leftCorner.getY(), 100, 100);
 
-        this.add(MouseTracker.mouseSlot);
+        this.add(mouse);
         /*
          * ivyLabel.setIcon(ivy);
          * ivyLabel.setVerticalAlignment(JLabel.CENTER);

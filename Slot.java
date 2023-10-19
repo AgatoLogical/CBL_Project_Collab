@@ -14,15 +14,22 @@ public class Slot extends JPanel {
     public int pageID;
 
     public boolean isEmpty;
-    public Component component;
+    public Component component = new Component("", "", null);
+
+    PressReactor pressReactor = new PressReactor();
 
     public Slot(Point corner, int page) {
         this.leftCorner = corner;
         this.pageID = page;
 
-        PressReactor pressReactor = new PressReactor();
         this.addMouseListener(pressReactor);
 
+    }
+
+    public Component add(Component comp) {
+        this.addImpl(comp, null, -1);
+        this.component = comp;
+        return comp;
     }
 
     /**
@@ -49,30 +56,26 @@ public class Slot extends JPanel {
     // // return itemInSlot;
     // }
 
-    public Component remove(Point corner, int page) {
+    // public Component remove(Point corner, int page) {
 
-        Component itemInSpot;
-        itemInSpot = component;
-        this.component = null;
+    // Component itemInSpot;
+    // itemInSpot = component;
+    // this.component = null;
 
-        isEmpty = true;
-        return itemInSpot;
-    }
+    // isEmpty = true;
+    // return itemInSpot;
+    // }
 
     public class PressReactor extends MouseAdapter {
         public void mousePressed(MouseEvent e) {
-            MouseTracker mouse = new MouseTracker();
+            System.out.println("mouse pressed in slot");
+            MouseTracker mouse = Workshop.mouse;
 
             // getting the component from the slot?????????????
-            List<JLabel> list = new ArrayList<JLabel>();
-            JComponent[] components = panel.getComponents();
-
-            for (JComponent component : components) {
-                if (component.getClass().equals(JLabel.class)) {
-                    list.add((JLabel) component);
-                }
-            }
-            mouse.mouseSlot.add(list.get(0));
+            mouse.mouseSlot.add(component);
+            Slot.this.component = mouse.mouseSlot.component;
+            repaint();
+            System.out.println("mouse has component: " + mouse.mouseSlot.component.parent1);
         }
 
     }

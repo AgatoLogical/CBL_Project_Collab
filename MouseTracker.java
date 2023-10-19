@@ -15,27 +15,32 @@ public class MouseTracker extends JPanel {
     static final int height = 100;
 
     MouseTracker() {
-
+        mouseSlot.setVisible(true);
         // track mouse and make the slot follow it
 
         Reactor reactor = new Reactor();
         mouseSlot.addMouseListener(reactor);
         DragReactor drag = new DragReactor();
         mouseSlot.addMouseMotionListener(drag);
+        System.out.println("mouseslot is created");
     }
 
     private class Reactor extends MouseAdapter {
 
         public void mousePressed(MouseEvent e) {
             prevPoint = e.getPoint();
+            System.out.println("mouse pressed in mouseslot");
         }
 
         public void mouseReleased(MouseEvent e) {
-            mouseSlot.removeAll();
+            mouseSlot.remove(mouseSlot.component);
+            System.out.println("mouse released in mouseslot");
+            System.out.println("mouse doesn't have component");
         }
 
         public void mouseMoved(MouseEvent e) {
             mouseSlot.leftCorner = new Point((int) e.getPoint().getX(), (int) e.getPoint().getY());
+            System.out.println("mouse is moving");
         }
     }
 
@@ -51,6 +56,8 @@ public class MouseTracker extends JPanel {
             prevPoint = currentPoint;
 
             repaint();
+
+            System.out.println("mouse dragged");
         }
     }
 
