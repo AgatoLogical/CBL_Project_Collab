@@ -4,7 +4,7 @@ public class Combination {
     private Component parent1;
     private Component parent2;
     private Component child;
-    private boolean discovered;
+    private boolean discovered = false;
 
     public Combination(Component comp1, Component comp2, Component resultComponent) {
         this.parent1 = comp1;
@@ -12,16 +12,24 @@ public class Combination {
         this.child = resultComponent;
     }
 
-    public Component getParent1(){
+    public Component getParent1() {
         return this.parent1;
     }
 
-    public Component getParent2(){
+    public Component getParent2() {
         return this.parent2;
     }
 
-    public Component getChild(){
+    public Component getChild() {
         return this.child;
+    }
+
+    public boolean isDiscovered() {
+        return discovered;
+    }
+
+    public void setDiscovered(boolean d) {
+        this.discovered = d;
     }
 
 }

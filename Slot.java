@@ -1,7 +1,7 @@
 import java.awt.Point;
 import javax.swing.JPanel;
 
-public class Slot extends JPanel{
+public class Slot extends JPanel {
 
     public Point leftCorner;
     public static final int length = 50;
@@ -23,6 +23,10 @@ public class Slot extends JPanel{
     public void remove(Point corner, int page) {
         // ...
         isEmpty = true;
+    }
+
+    public void triggerCombination(Component item1, Component item2) {
+
     }
 
     // will probably need some methods getPage , getCorner etc

@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-public class Component extends JLabel{
+public class Component extends JLabel {
     public String name;
     public final int value = 0;
 
@@ -12,6 +12,9 @@ public class Component extends JLabel{
 
     Point imageCorner;
     Point prevPt;
+
+    private int valueOfItem = 0;
+    private static final int valueIncrease = 100;
 
     public Component(ImageIcon icon) {
         image = icon;
@@ -38,14 +41,13 @@ public class Component extends JLabel{
 
     private class DragListener extends MouseMotionAdapter {
 
-        public void mouseDragged(MouseEvent e){
+        public void mouseDragged(MouseEvent e) {
 
             Point currentPt = e.getPoint();
 
             imageCorner.translate(
-                (int)(currentPt.getX() - prevPt.getX()),
-                (int)(currentPt.getY() - prevPt.getY())
-            );
+                    (int) (currentPt.getX() - prevPt.getX()),
+                    (int) (currentPt.getY() - prevPt.getY()));
             prevPt = currentPt;
             repaint();
         }
@@ -54,5 +56,13 @@ public class Component extends JLabel{
     public String combine(String item1, String item2) {
         this.setVisible(true);
         return null;
+    }
+
+    public void setValue(int categoryNumber) {
+        valueOfItem = valueIncrease * categoryNumber;
+    }
+
+    public int getValue() {
+        return valueOfItem;
     }
 }

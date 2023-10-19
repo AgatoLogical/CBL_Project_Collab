@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class RecipeBook extends JFrame{
+public class RecipeBook extends JFrame {
 
     public static Recipe[] recipe = new Recipe[0];
 
