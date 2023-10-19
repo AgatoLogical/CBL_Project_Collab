@@ -174,7 +174,7 @@ public class Workshop extends JPanel{
         shopButton.setBackground(new Color(112, 81, 52));
         shopButton.setBorder(darkBorder);
 
-        layeredPane.add(firstShelf, Integer.valueOf(0));
+        layeredPane.add(firstShelf, Integer.valueOf(2));
         layeredPane.add(secondShelf, Integer.valueOf(0));
         layeredPane.add(thirdShelf, Integer.valueOf(0));
         layeredPane.add(tablePanel, Integer.valueOf(0));
