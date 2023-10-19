@@ -11,6 +11,7 @@ NATURE:
     10. Mud = Sand + Water <a href="https://www.flaticon.com/free-icons/ecology-and-environment" title="ecology and environment icons">Ecology and environment icons created by Marz Gallery - Flaticon</a>
     11. Dust = Earth + Air <a href="https://www.flaticon.com/free-icons/dust" title="dust icons">Dust icons created by Freepik - Flaticon</a>
     12. Energy = Air + Fire <a href="https://www.freepik.com/search?format=search&last_filter=page&last_value=2&page=2&query=e%3Dmc2&type=icon">Icon by Freepik</a>
+    13. Pressure = Air + Energy <a href="https://www.flaticon.com/free-icons/resilience" title="resilience icons">Resilience icons created by Freepik - Flaticon</a>
 
 STONE AGE:
     1. Stone = Air + Lava <a href="https://www.flaticon.com/free-icons/granite" title="Granite icons">Granite icons created by Freepik - Flaticon</a>

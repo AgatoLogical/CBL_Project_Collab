@@ -235,59 +235,138 @@ public class Workshop extends JPanel{
         Component water = new Component(new ImageIcon("icons/water.png"));
         water.setVisible(true);
         slots[33][0].add(water);
+
         Component lava = new Component(new ImageIcon("icons/lava.png"));
         Combination lavaCombination = new Combination(earth, fire, lava);
-        CombinationManager.addCombination(lavaCombination);
-        lava.setVisible(true);
-        slots[0][0].add(lava);
+        propertiesInit(lavaCombination, 0);
+
         Component plant = new Component(new ImageIcon("icons/plant.png"));
         Combination plantCombination = new Combination(earth, water, plant);
-        CombinationManager.addCombination(plantCombination);
-        plant.setVisible(true);
-        slots[1][0].add(plant);
+        propertiesInit(plantCombination, 1);
+
         Component tree = new Component(new ImageIcon("icons/tree.png"));
         Combination treeCombination = new Combination(plant, water, tree);
-        CombinationManager.addCombination(treeCombination);
-        tree.setVisible(true);
-        slots[2][0].add(tree);
+        propertiesInit(treeCombination, 2);
+
         Component wood = new Component(new ImageIcon("icons/wood.png"));
         Combination woodCombination = new Combination(earth, tree, wood);
-        CombinationManager.addCombination(woodCombination);
-        wood.setVisible(true);
-        slots[3][0].add(wood);
-        /*Component sand = new Component("stone", "air");
-        Component mud = new Component("earth", "water");
-        Component dust = new Component("earth", "air");
-        Component energy = new Component("air", "fire");
+        propertiesInit(woodCombination, 3);
+
+        Component stone = new Component(new ImageIcon("icons/stone.png"));
+
+        Component sand = new Component(new ImageIcon("icons/sand.png"));
+        Combination sandCombination = new Combination(air, stone, sand);
+        propertiesInit(sandCombination, 4);
+
+        Component mud = new Component(new ImageIcon("icons/mud.png"));
+        Combination mudCombination = new Combination(earth, water, mud);
+        propertiesInit(mudCombination, 5);
+
+        Component dust = new Component(new ImageIcon("icons/dust.png"));
+        Combination dustCombination = new Combination(air, earth, dust);
+        propertiesInit(dustCombination, 6);
+
+        Component energy = new Component(new ImageIcon("icons/energy.png"));
+        Combination energyCombination = new Combination(air, fire, energy);
+        propertiesInit(energyCombination, 7);
+
+        Component pressure = new Component(new ImageIcon("icons/pressure.png"));
+        Combination pressureCombination = new Combination(air, energy, pressure);
+        propertiesInit(pressureCombination, 8);
+
 
         //-----------------------------STONE AGE--------------------------------//
-        Component stone = new Component("air", "lava");
-        Component boat = new Component("water", "wood");
-        Component clay = new Component("sand", "mud");
-        Component pottery = new Component("clay", "fire");
-        Component tools = new Component("wood", "stone");
-        Component wheel = new Component("wood", "tools");
-        Component farming = new Component("earth", "tools");
-        Component gold = new Component("stone", "tools");
+        Combination stoneCombination = new Combination(air, lava, stone);
+        propertiesInit(stoneCombination, 9);
+
+        Component boat = new Component(new ImageIcon("icons/boat.png"));
+        Combination boatCombination = new Combination(water, wood, boat);
+        propertiesInit(boatCombination, 10);
+
+        Component clay = new Component(new ImageIcon("icons/clay.png"));
+        Combination clayCombination = new Combination(mud, sand, clay);
+        propertiesInit(clayCombination, 11);
+
+        Component pottery = new Component(new ImageIcon("icons/pottery.png"));
+        Combination potteryCombination = new Combination(clay, fire, pottery);
+        propertiesInit(potteryCombination, 12);
+
+        Component tools = new Component(new ImageIcon("icons/tools.png"));
+        Combination toolsCombination = new Combination(stone, wood, tools);
+        propertiesInit(toolsCombination, 13);
+
+        Component wheel = new Component(new ImageIcon("icons/wheel.png"));
+        Combination wheelCombination = new Combination(tools, wood, wheel);
+        propertiesInit(wheelCombination, 14);
+
+        Component farming = new Component(new ImageIcon("icons/farming.png"));
+        Combination farmingCombination = new Combination(earth, tools, farming);
+        propertiesInit(farmingCombination, 15);
+    
+        Component gold = new Component(new ImageIcon("icons/gold.png"));
+        Combination goldCombination = new Combination(stone, tools, gold);
+        propertiesInit(goldCombination, 16);
 
         //-----------------------------IRON AGE--------------------------------//
-        Component metal = new Component("air", "lava");
-        Component sword = new Component("water", "wood");
-        Component waterWheel = new Component("sand", "mud");
-        Component glass = new Component("clay", "fire");
-        Component mirror = new Component("wood", "stone");
-        Component coins = new Component("wood", "tools");
+        Component metal = new Component(new ImageIcon("icons/metal.png"));
+        Combination metalCombination = new Combination(air, lava, metal);
+        propertiesInit(metalCombination, 17);
+
+        Component sword = new Component(new ImageIcon("icons/sword.png"));
+        Combination swordCombination = new Combination(water, wood, sword);
+        propertiesInit(swordCombination, 18);
+
+        Component waterWheel = new Component(new ImageIcon("icons/waterWheel.png"));
+        Combination waterWheelCombination = new Combination(mud, sand, waterWheel);
+        propertiesInit(waterWheelCombination, 19);
+
+        Component glass = new Component(new ImageIcon("icons/glass.png"));
+        Combination glassCombination = new Combination(clay, fire, glass);
+        propertiesInit(glassCombination, 20);
+
+        Component mirror = new Component(new ImageIcon("icons/mirror.png"));
+        Combination mirrorCombination = new Combination(stone, wood, mirror);
+        propertiesInit(mirrorCombination, 21);
+
+        Component coins = new Component(new ImageIcon("icons/coins.png"));
+        Combination coinsCombination = new Combination(tools, wood, coins);
+        propertiesInit(coinsCombination, 22);        
 
         //-----------------------------MODERN--------------------------------//
-        Component gunpowder = new Component("fire", "dust");
-        Component explosion = new Component("gunpowder", "fire");
-        Component atomicBomb = new Component("energy", "explosion");
-        Component electricity = new Component("metal", "energy");
-        Component computer = new Component("tools", "electricity");
-        Component lightbulb = new Component("electricity", "glass");
-        Component paper = new Component("wood", "pressure");
-        Component money = new Component("paper", "gold");*/
+        Component gunpowder = new Component(new ImageIcon("icons/gunpowder.png"));
+        Combination gunpowderCombination = new Combination(dust, fire, gunpowder);
+        propertiesInit(gunpowderCombination, 23);  
 
+        Component explosion = new Component(new ImageIcon("icons/explosion.png"));
+        Combination explosionCombination = new Combination(fire, gunpowder, explosion);
+        propertiesInit(explosionCombination, 24);  
+
+        Component atomicBomb = new Component(new ImageIcon("icons/atomicBomb.png"));
+        Combination atomicBombCombination = new Combination(energy, explosion, atomicBomb);
+        propertiesInit(atomicBombCombination, 25);  
+
+        Component electricity = new Component(new ImageIcon("icons/electricity.png"));
+        Combination electricityCombination = new Combination(energy, metal, electricity);
+        propertiesInit(electricityCombination, 26);  
+
+        Component computer = new Component(new ImageIcon("icons/computer.png"));
+        Combination computerCombination = new Combination(electricity, tools, computer);
+        propertiesInit(computerCombination, 27);  
+
+        Component lightbulb = new Component(new ImageIcon("icons/lightbulb.png"));
+        Combination lightbulbCombination = new Combination(electricity, glass, lightbulb);
+        propertiesInit(lightbulbCombination, 28);  
+
+        Component paper = new Component(new ImageIcon("icons/paper.png"));
+        Combination paperCombination = new Combination(pressure, wood, paper);
+        propertiesInit(paperCombination, 29);  
+
+    }
+
+    public void propertiesInit(Combination combination, int slotNr){
+        CombinationManager.addCombination(combination);
+        combination.getChild().setVisible(true);
+        slots[slotNr][0].add(combination.getChild());
     }
 
     public void showComponents() {

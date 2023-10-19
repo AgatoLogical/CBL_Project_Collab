@@ -16,8 +16,4 @@ public class CombinationManager {
 
         return null;
     }
-
-    /*public List<Combination> access(){
-
-    }*/
 }
