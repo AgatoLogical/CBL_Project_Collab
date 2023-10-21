@@ -51,7 +51,8 @@ public class Workshop extends JPanel{
     ImageIcon shopIcon = new ImageIcon("shop.png");
 
     JPanel tableSlotsPanel = new JPanel(new GridLayout(1, 2, 50, 0));
-    JPanel shelvesPanel = new JPanel(new GridLayout(3, 1, 0, 30));
+
+    JPanel defaultItemsPanel = new JPanel(new GridLayout(1, 4,16, 0));
 
     Workshop(){
 
@@ -75,16 +76,19 @@ public class Workshop extends JPanel{
 
         firstShelf.setBackground(new Color(102, 65, 30));
         firstShelf.setBounds(25, 10, 1150, 130);
+        firstShelf.setOpaque(true);
         firstShelf.setLayout(null);
         firstShelf.add(brownShelf1);
 
         secondShelf.setBackground(new Color(143, 79, 16));
         secondShelf.setBounds(25, 150, 1150, 130);
+        secondShelf.setOpaque(true);
         secondShelf.setLayout(null);
         secondShelf.add(brownShelf2);
 
         thirdShelf.setBackground(new Color(128, 76, 25));
         thirdShelf.setBounds(25, 290, 1150, 130); 
+        thirdShelf.setOpaque(true);
         thirdShelf.setLayout(null); 
         thirdShelf.add(brownShelf3); 
 
@@ -112,13 +116,18 @@ public class Workshop extends JPanel{
             }
         }
 
+        defaultItemsPanel.setOpaque(true);
+        defaultItemsPanel.setBackground(new Color(0, 0, 0, 0));
+        defaultItemsPanel.setBounds(795,445, 380, 80);
+
         x = 795;
         y = 445;
         for (int i = 30; i < 34; ++i){
             slots[i][0] = new Slot(new Point(x, y), 0);                
             slots[i][0].setBackground(new Color(0,0,0,30));
-            slots[i][0].setBounds((int) slots[i][0].leftCorner.getX(), (int) slots[i][0].leftCorner.getY(), 80, 80);
-            layeredPane.add(slots[i][0], Integer.valueOf(0));
+            //slots[i][0].setBounds((int) slots[i][0].leftCorner.getX(), (int) slots[i][0].leftCorner.getY(), 80, 80);
+            //layeredPane.add(slots[i][0], Integer.valueOf(0));
+            defaultItemsPanel.add(slots[i][0]);
             x += 100;
         }
 
@@ -126,8 +135,6 @@ public class Workshop extends JPanel{
         itemsInit();
 
         tableLabel.setIcon(table);
-        //tableLabel.setVerticalAlignment(JLabel.CENTER);
-        //tableLabel.setHorizontalAlignment(JLabel.CENTER);
         tableLabel.setBounds(25, 3, 550, 592);
         
         tablePanel.setLayout(null);
@@ -135,32 +142,20 @@ public class Workshop extends JPanel{
         tablePanel.setBounds(300, 450, 600, 600);
         tablePanel.add(tableLabel);
 
-        //tableSlotsPanel.setLayout(null);
         tableSlotsPanel.setOpaque(true);
         tableSlotsPanel.setBackground(new Color(0,0,0,0));
-        //tableSlotsPanel.setBackground(Color.black);
         tableSlotsPanel.setBounds(470, 539, 260, 100);
 
         tableSlots[0] = new Slot(new Point(0, 0), -1);
         tableSlots[0].setOpaque(true);
         tableSlots[0].setBackground(new Color(0,0,0,30));
-        //tableSlots[0].setBounds((int) tableSlots[0].leftCorner.getX(), (int) tableSlots[0].leftCorner.getY(), 100, 100);
         tableSlotsPanel.add(tableSlots[0]);
 
         tableSlots[1] = new Slot(new Point(159, 0), -1);
         tableSlots[1].setOpaque(true);
         tableSlots[1].setBackground(new Color(0,0,0,30));
-        //tableSlots[1].setBounds((int) tableSlots[1].leftCorner.getX(), (int) tableSlots[1].leftCorner.getY(), 100, 100);
         tableSlotsPanel.add(tableSlots[1]);
 
-        /*ivyLabel.setIcon(ivy);
-        ivyLabel.setVerticalAlignment(JLabel.CENTER);
-        ivyLabel.setHorizontalAlignment(JLabel.CENTER);*/
-
-        /*ivyPanel.setLayout(new BorderLayout());
-        ivyPanel.setBackground(new Color(0,0,0,0));
-        ivyPanel.setBounds(25, 115, 150, 60);
-        ivyPanel.add(ivyLabel);*/
 
         ivyTableLabel.setIcon(ivyTable);
         ivyTableLabel.setVerticalAlignment(JLabel.CENTER);
@@ -199,11 +194,9 @@ public class Workshop extends JPanel{
         layeredPane.add(tableSlotsPanel, Integer.valueOf(1));
         layeredPane.add(ivyTablePanel, Integer.valueOf(1));
         layeredPane.add(ivyTablePanel2, Integer.valueOf(1));
-        //layeredPane.add(tableSlots[0], Integer.valueOf(1));
-        //layeredPane.add(tableSlots[1], Integer.valueOf(1));
         layeredPane.add(bookButton, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(shopButton, JLayeredPane.DEFAULT_LAYER);
-        //layeredPane.add(ivyPanel, Integer.valueOf(1));
+        layeredPane.add(defaultItemsPanel, JLayeredPane.DEFAULT_LAYER);
 
         int xIvy = 5;
         int yIvy = 115;
@@ -244,10 +237,22 @@ public class Workshop extends JPanel{
 
         @Override
         public void mousePressed(MouseEvent me) {
-            //Point pointInShelvesPanel = SwingUtilities.convertPoint(layeredPane, me.getPoint(), ShelvesPanel);
-            clickedPanel = (JPanel) firstShelf.getComponentAt(me.getPoint());
-            if (clickedPanel == null) clickedPanel = (JPanel) secondShelf.getComponentAt(me.getPoint());
-            if (clickedPanel == null) clickedPanel = (JPanel) thirdShelf.getComponentAt(me.getPoint());
+            Point slotPoint = SwingUtilities.convertPoint(layeredPane, me.getPoint(), firstShelf);
+            clickedPanel = (JPanel) firstShelf.getComponentAt(slotPoint);
+            if (clickedPanel == null){
+                slotPoint = SwingUtilities.convertPoint(layeredPane, me.getPoint(), secondShelf);
+                clickedPanel = (JPanel) secondShelf.getComponentAt(slotPoint);
+            }
+            
+            if (clickedPanel == null) {
+                slotPoint = SwingUtilities.convertPoint(layeredPane, me.getPoint(), thirdShelf);
+                clickedPanel = (JPanel) thirdShelf.getComponentAt(slotPoint);
+            }
+
+            if (clickedPanel == null) {
+                slotPoint = SwingUtilities.convertPoint(layeredPane, me.getPoint(), defaultItemsPanel);
+                clickedPanel = (JPanel) defaultItemsPanel.getComponentAt(slotPoint);
+            }
 
             Component[] components = clickedPanel.getComponents();
             if (components.length == 0) {
@@ -293,9 +298,6 @@ public class Workshop extends JPanel{
             layeredPane.remove(dragLabel); //Remove dragLabel from the DRAG_LAYER
             Point pointInTableSlotsPanel = SwingUtilities.convertPoint(layeredPane, me.getPoint(), tableSlotsPanel);
             JPanel droppedPanel = (JPanel) tableSlotsPanel.getComponentAt(pointInTableSlotsPanel);
-            //JPanel droppedPanel = (JPanel) tableSlotsPanel.getComponentAt(me.getPoint()); //I have to create a jpanel that stores only the table slots
-            System.out.println(droppedPanel);
-            System.out.println(me.getPoint());
             if (droppedPanel == null) {
                 //If off the the shelves, return the label to its original location
                 clickedPanel.add(dragLabel);
