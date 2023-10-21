@@ -7,7 +7,7 @@ public class Slot extends JPanel{
     public static final int length = 50;
     public int pageID;
     public boolean isEmpty;
-    public Component component;
+    public Item Item;
 
     public Slot(Point corner, int page) {
         this.leftCorner = corner;
@@ -15,7 +15,7 @@ public class Slot extends JPanel{
         this.isEmpty = true;
     }
 
-    public void add(Point corner, int page, Component item) {
+    public void add(Point corner, int page, Item item) {
         // ...
         isEmpty = false;
     }

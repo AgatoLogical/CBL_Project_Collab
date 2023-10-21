@@ -4,7 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
-public class Component extends JLabel{
+public class Item extends JLabel{
     public String name;
     public final int value = 0;
 
@@ -13,18 +13,18 @@ public class Component extends JLabel{
     Point imageCorner;
     Point prevPt;
 
-    public Component(ImageIcon icon) {
+    public Item(ImageIcon icon) {
         image = icon;
         this.setIcon(icon);
         this.setVisible(false);
         imageCorner = new Point(0, 0);
-        ClickListener clickListener = new ClickListener();
-        DragListener dragListener = new DragListener();
-        this.addMouseListener(clickListener);
-        this.addMouseMotionListener(dragListener);
+        //ClickListener clickListener = new ClickListener();
+        //DragListener dragListener = new DragListener();
+        //this.addMouseListener(clickListener);
+        //this.addMouseMotionListener(dragListener);
     }
 
-    public void paintComponent(Graphics g) {
+    /*public void paintComponent(Graphics g) {
         super.paintComponent(g);
         image.paintIcon(this, g, (int) imageCorner.getX(), (int) imageCorner.getY());
     }
@@ -49,7 +49,7 @@ public class Component extends JLabel{
             prevPt = currentPt;
             repaint();
         }
-    }
+    }*/
 
     public String combine(String item1, String item2) {
         this.setVisible(true);

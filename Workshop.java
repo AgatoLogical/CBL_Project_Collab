@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.Border;
 
@@ -49,8 +50,11 @@ public class Workshop extends JPanel{
     ImageIcon bookIcon = new ImageIcon("recipe_book.png");
     ImageIcon shopIcon = new ImageIcon("shop.png");
 
+    JPanel tableSlotsPanel = new JPanel(new GridLayout(1, 2, 50, 0));
+    JPanel shelvesPanel = new JPanel(new GridLayout(3, 1, 0, 30));
+
     Workshop(){
-        
+
         int x = 17;
         int y = 15;
         int counterForCoord = 0;
@@ -118,22 +122,36 @@ public class Workshop extends JPanel{
             x += 100;
         }
 
+        //startGame();
+        itemsInit();
+
         tableLabel.setIcon(table);
-        tableLabel.setVerticalAlignment(JLabel.CENTER);
-        tableLabel.setHorizontalAlignment(JLabel.CENTER);
+        //tableLabel.setVerticalAlignment(JLabel.CENTER);
+        //tableLabel.setHorizontalAlignment(JLabel.CENTER);
+        tableLabel.setBounds(25, 3, 550, 592);
         
-        tablePanel.setLayout(new BorderLayout());
+        tablePanel.setLayout(null);
         tablePanel.setBackground(new Color(0,0,0,0));
         tablePanel.setBounds(300, 450, 600, 600);
         tablePanel.add(tableLabel);
 
-        tableSlots[0] = new Slot(new Point(470, 539), -1);
+        //tableSlotsPanel.setLayout(null);
+        tableSlotsPanel.setOpaque(true);
+        tableSlotsPanel.setBackground(new Color(0,0,0,0));
+        //tableSlotsPanel.setBackground(Color.black);
+        tableSlotsPanel.setBounds(470, 539, 260, 100);
+
+        tableSlots[0] = new Slot(new Point(0, 0), -1);
+        tableSlots[0].setOpaque(true);
         tableSlots[0].setBackground(new Color(0,0,0,30));
-        tableSlots[0].setBounds((int) tableSlots[0].leftCorner.getX(), (int) tableSlots[0].leftCorner.getY(), 100, 100);
-        
-        tableSlots[1] = new Slot(new Point(628, 539), -1);
+        //tableSlots[0].setBounds((int) tableSlots[0].leftCorner.getX(), (int) tableSlots[0].leftCorner.getY(), 100, 100);
+        tableSlotsPanel.add(tableSlots[0]);
+
+        tableSlots[1] = new Slot(new Point(159, 0), -1);
+        tableSlots[1].setOpaque(true);
         tableSlots[1].setBackground(new Color(0,0,0,30));
-        tableSlots[1].setBounds((int) tableSlots[1].leftCorner.getX(), (int) tableSlots[1].leftCorner.getY(), 100, 100);
+        //tableSlots[1].setBounds((int) tableSlots[1].leftCorner.getX(), (int) tableSlots[1].leftCorner.getY(), 100, 100);
+        tableSlotsPanel.add(tableSlots[1]);
 
         /*ivyLabel.setIcon(ivy);
         ivyLabel.setVerticalAlignment(JLabel.CENTER);
@@ -174,16 +192,17 @@ public class Workshop extends JPanel{
         shopButton.setBackground(new Color(112, 81, 52));
         shopButton.setBorder(darkBorder);
 
-        layeredPane.add(firstShelf, Integer.valueOf(2));
-        layeredPane.add(secondShelf, Integer.valueOf(0));
-        layeredPane.add(thirdShelf, Integer.valueOf(0));
-        layeredPane.add(tablePanel, Integer.valueOf(0));
+        layeredPane.add(firstShelf, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(secondShelf, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(thirdShelf, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(tablePanel, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(tableSlotsPanel, Integer.valueOf(1));
         layeredPane.add(ivyTablePanel, Integer.valueOf(1));
         layeredPane.add(ivyTablePanel2, Integer.valueOf(1));
-        layeredPane.add(tableSlots[0], Integer.valueOf(1));
-        layeredPane.add(tableSlots[1], Integer.valueOf(1));
-        layeredPane.add(bookButton, Integer.valueOf(0));
-        layeredPane.add(shopButton, Integer.valueOf(0));
+        //layeredPane.add(tableSlots[0], Integer.valueOf(1));
+        //layeredPane.add(tableSlots[1], Integer.valueOf(1));
+        layeredPane.add(bookButton, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(shopButton, JLayeredPane.DEFAULT_LAYER);
         //layeredPane.add(ivyPanel, Integer.valueOf(1));
 
         int xIvy = 5;
@@ -210,67 +229,154 @@ public class Workshop extends JPanel{
             }
         }
 
+        MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
+        layeredPane.addMouseListener(myMouseAdapter);
+        layeredPane.addMouseMotionListener(myMouseAdapter);
+
         this.add(layeredPane);
-
-        startGame();
     }
 
-    public void startGame(){
+    private class MyMouseAdapter extends MouseAdapter {
+        private JLabel dragLabel = null;
+        private int dragLabelWidthDiv2;
+        private int dragLabelHeightDiv2;
+        private JPanel clickedPanel = null;
+
+        @Override
+        public void mousePressed(MouseEvent me) {
+            //Point pointInShelvesPanel = SwingUtilities.convertPoint(layeredPane, me.getPoint(), ShelvesPanel);
+            clickedPanel = (JPanel) firstShelf.getComponentAt(me.getPoint());
+            if (clickedPanel == null) clickedPanel = (JPanel) secondShelf.getComponentAt(me.getPoint());
+            if (clickedPanel == null) clickedPanel = (JPanel) thirdShelf.getComponentAt(me.getPoint());
+
+            Component[] components = clickedPanel.getComponents();
+            if (components.length == 0) {
+                return;
+            }
+            if (components[0] instanceof JLabel) {
+                dragLabel = (JLabel) components[0];
+                clickedPanel.remove(dragLabel);
+                clickedPanel.revalidate();
+                clickedPanel.repaint();
+
+                //Calculate half dimensions for centering
+                dragLabelWidthDiv2 = dragLabel.getWidth()/2;
+                dragLabelHeightDiv2 = dragLabel.getHeight()/2;
+
+                //Calculate the new position for the dragged label
+                int x = me.getPoint().x - dragLabelWidthDiv2;
+                int y = me.getPoint().y - dragLabelHeightDiv2;
+                dragLabel.setLocation(x, y);
+                layeredPane.add(dragLabel, JLayeredPane.DRAG_LAYER); //???????????
+                layeredPane.repaint();
+            }
+
+        }
+        
+        @Override
+        public void mouseDragged(MouseEvent me) {
+            // Update the position of the dragged label during the drag
+            if (dragLabel == null) {
+                return;
+            }
+            int x = me.getPoint().x - dragLabelWidthDiv2;
+            int y = me.getPoint().y - dragLabelHeightDiv2;
+            dragLabel.setLocation(x, y);
+            layeredPane.repaint();
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent me) {
+            if (dragLabel == null) {
+                return;
+            }
+            layeredPane.remove(dragLabel); //Remove dragLabel from the DRAG_LAYER
+            Point pointInTableSlotsPanel = SwingUtilities.convertPoint(layeredPane, me.getPoint(), tableSlotsPanel);
+            JPanel droppedPanel = (JPanel) tableSlotsPanel.getComponentAt(pointInTableSlotsPanel);
+            //JPanel droppedPanel = (JPanel) tableSlotsPanel.getComponentAt(me.getPoint()); //I have to create a jpanel that stores only the table slots
+            System.out.println(droppedPanel);
+            System.out.println(me.getPoint());
+            if (droppedPanel == null) {
+                //If off the the shelves, return the label to its original location
+                clickedPanel.add(dragLabel);
+                clickedPanel.revalidate();
+            } else {
+                int droppedOnTable = -1; //1 if first slot, 2 if the second
+                if(droppedPanel == tableSlots[0]){
+                    droppedOnTable = 1;
+                    droppedPanel.add(dragLabel);
+                    droppedPanel.revalidate();
+                } else if (droppedPanel == tableSlots[1]){
+                    droppedOnTable = 2;
+                    droppedPanel.add(dragLabel);
+                    droppedPanel.revalidate();
+                } else {
+                    clickedPanel.add(dragLabel);
+                    clickedPanel.revalidate();
+                }
+            }
+            layeredPane.repaint();
+            dragLabel = null;
+        }
+
+    }
+
+    /*public void startGame(){
         init();
-    }
+    }*/
 
     // other variables for rendering
-    public void init() {
+    public void itemsInit() {
 
         //-----------------------------NATURE--------------------------------//
-        Component air = new Component(new ImageIcon("icons/air.png"));
+        Item air = new Item(new ImageIcon("icons/air.png"));
         air.setVisible(true);
         slots[30][0].add(air);
-        Component earth = new Component(new ImageIcon("icons/earth.png"));
+        Item earth = new Item(new ImageIcon("icons/earth.png"));
         earth.setVisible(true);
         slots[31][0].add(earth);
-        Component fire = new Component(new ImageIcon("icons/fire.png"));
+        Item fire = new Item(new ImageIcon("icons/fire.png"));
         fire.setVisible(true);
         slots[32][0].add(fire);
-        Component water = new Component(new ImageIcon("icons/water.png"));
+        Item water = new Item(new ImageIcon("icons/water.png"));
         water.setVisible(true);
         slots[33][0].add(water);
 
-        Component lava = new Component(new ImageIcon("icons/lava.png"));
+        Item lava = new Item(new ImageIcon("icons/lava.png"));
         Combination lavaCombination = new Combination(earth, fire, lava);
         propertiesInit(lavaCombination, 0);
 
-        Component plant = new Component(new ImageIcon("icons/plant.png"));
+        Item plant = new Item(new ImageIcon("icons/plant.png"));
         Combination plantCombination = new Combination(earth, water, plant);
         propertiesInit(plantCombination, 1);
 
-        Component tree = new Component(new ImageIcon("icons/tree.png"));
+        Item tree = new Item(new ImageIcon("icons/tree.png"));
         Combination treeCombination = new Combination(plant, water, tree);
         propertiesInit(treeCombination, 2);
 
-        Component wood = new Component(new ImageIcon("icons/wood.png"));
+        Item wood = new Item(new ImageIcon("icons/wood.png"));
         Combination woodCombination = new Combination(earth, tree, wood);
         propertiesInit(woodCombination, 3);
 
-        Component stone = new Component(new ImageIcon("icons/stone.png"));
+        Item stone = new Item(new ImageIcon("icons/stone.png"));
 
-        Component sand = new Component(new ImageIcon("icons/sand.png"));
+        Item sand = new Item(new ImageIcon("icons/sand.png"));
         Combination sandCombination = new Combination(air, stone, sand);
         propertiesInit(sandCombination, 4);
 
-        Component mud = new Component(new ImageIcon("icons/mud.png"));
+        Item mud = new Item(new ImageIcon("icons/mud.png"));
         Combination mudCombination = new Combination(earth, water, mud);
         propertiesInit(mudCombination, 5);
 
-        Component dust = new Component(new ImageIcon("icons/dust.png"));
+        Item dust = new Item(new ImageIcon("icons/dust.png"));
         Combination dustCombination = new Combination(air, earth, dust);
         propertiesInit(dustCombination, 6);
 
-        Component energy = new Component(new ImageIcon("icons/energy.png"));
+        Item energy = new Item(new ImageIcon("icons/energy.png"));
         Combination energyCombination = new Combination(air, fire, energy);
         propertiesInit(energyCombination, 7);
 
-        Component pressure = new Component(new ImageIcon("icons/pressure.png"));
+        Item pressure = new Item(new ImageIcon("icons/pressure.png"));
         Combination pressureCombination = new Combination(air, energy, pressure);
         propertiesInit(pressureCombination, 8);
 
@@ -279,85 +385,85 @@ public class Workshop extends JPanel{
         Combination stoneCombination = new Combination(air, lava, stone);
         propertiesInit(stoneCombination, 9);
 
-        Component boat = new Component(new ImageIcon("icons/boat.png"));
+        Item boat = new Item(new ImageIcon("icons/boat.png"));
         Combination boatCombination = new Combination(water, wood, boat);
         propertiesInit(boatCombination, 10);
 
-        Component clay = new Component(new ImageIcon("icons/clay.png"));
+        Item clay = new Item(new ImageIcon("icons/clay.png"));
         Combination clayCombination = new Combination(mud, sand, clay);
         propertiesInit(clayCombination, 11);
 
-        Component pottery = new Component(new ImageIcon("icons/pottery.png"));
+        Item pottery = new Item(new ImageIcon("icons/pottery.png"));
         Combination potteryCombination = new Combination(clay, fire, pottery);
         propertiesInit(potteryCombination, 12);
 
-        Component tools = new Component(new ImageIcon("icons/tools.png"));
+        Item tools = new Item(new ImageIcon("icons/tools.png"));
         Combination toolsCombination = new Combination(stone, wood, tools);
         propertiesInit(toolsCombination, 13);
 
-        Component wheel = new Component(new ImageIcon("icons/wheel.png"));
+        Item wheel = new Item(new ImageIcon("icons/wheel.png"));
         Combination wheelCombination = new Combination(tools, wood, wheel);
         propertiesInit(wheelCombination, 14);
 
-        Component farming = new Component(new ImageIcon("icons/farming.png"));
+        Item farming = new Item(new ImageIcon("icons/farming.png"));
         Combination farmingCombination = new Combination(earth, tools, farming);
         propertiesInit(farmingCombination, 15);
     
-        Component gold = new Component(new ImageIcon("icons/gold.png"));
+        Item gold = new Item(new ImageIcon("icons/gold.png"));
         Combination goldCombination = new Combination(stone, tools, gold);
         propertiesInit(goldCombination, 16);
 
         //-----------------------------IRON AGE--------------------------------//
-        Component metal = new Component(new ImageIcon("icons/metal.png"));
+        Item metal = new Item(new ImageIcon("icons/metal.png"));
         Combination metalCombination = new Combination(air, lava, metal);
         propertiesInit(metalCombination, 17);
 
-        Component sword = new Component(new ImageIcon("icons/sword.png"));
+        Item sword = new Item(new ImageIcon("icons/sword.png"));
         Combination swordCombination = new Combination(water, wood, sword);
         propertiesInit(swordCombination, 18);
 
-        Component waterWheel = new Component(new ImageIcon("icons/waterWheel.png"));
+        Item waterWheel = new Item(new ImageIcon("icons/waterWheel.png"));
         Combination waterWheelCombination = new Combination(mud, sand, waterWheel);
         propertiesInit(waterWheelCombination, 19);
 
-        Component glass = new Component(new ImageIcon("icons/glass.png"));
+        Item glass = new Item(new ImageIcon("icons/glass.png"));
         Combination glassCombination = new Combination(clay, fire, glass);
         propertiesInit(glassCombination, 20);
 
-        Component mirror = new Component(new ImageIcon("icons/mirror.png"));
+        Item mirror = new Item(new ImageIcon("icons/mirror.png"));
         Combination mirrorCombination = new Combination(stone, wood, mirror);
         propertiesInit(mirrorCombination, 21);
 
-        Component coins = new Component(new ImageIcon("icons/coins.png"));
+        Item coins = new Item(new ImageIcon("icons/coins.png"));
         Combination coinsCombination = new Combination(tools, wood, coins);
         propertiesInit(coinsCombination, 22);        
 
         //-----------------------------MODERN--------------------------------//
-        Component gunpowder = new Component(new ImageIcon("icons/gunpowder.png"));
+        Item gunpowder = new Item(new ImageIcon("icons/gunpowder.png"));
         Combination gunpowderCombination = new Combination(dust, fire, gunpowder);
         propertiesInit(gunpowderCombination, 23);  
 
-        Component explosion = new Component(new ImageIcon("icons/explosion.png"));
+        Item explosion = new Item(new ImageIcon("icons/explosion.png"));
         Combination explosionCombination = new Combination(fire, gunpowder, explosion);
         propertiesInit(explosionCombination, 24);  
 
-        Component atomicBomb = new Component(new ImageIcon("icons/atomicBomb.png"));
+        Item atomicBomb = new Item(new ImageIcon("icons/atomicBomb.png"));
         Combination atomicBombCombination = new Combination(energy, explosion, atomicBomb);
         propertiesInit(atomicBombCombination, 25);  
 
-        Component electricity = new Component(new ImageIcon("icons/electricity.png"));
+        Item electricity = new Item(new ImageIcon("icons/electricity.png"));
         Combination electricityCombination = new Combination(energy, metal, electricity);
         propertiesInit(electricityCombination, 26);  
 
-        Component computer = new Component(new ImageIcon("icons/computer.png"));
+        Item computer = new Item(new ImageIcon("icons/computer.png"));
         Combination computerCombination = new Combination(electricity, tools, computer);
         propertiesInit(computerCombination, 27);  
 
-        Component lightbulb = new Component(new ImageIcon("icons/lightbulb.png"));
+        Item lightbulb = new Item(new ImageIcon("icons/lightbulb.png"));
         Combination lightbulbCombination = new Combination(electricity, glass, lightbulb);
         propertiesInit(lightbulbCombination, 28);  
 
-        Component paper = new Component(new ImageIcon("icons/paper.png"));
+        Item paper = new Item(new ImageIcon("icons/paper.png"));
         Combination paperCombination = new Combination(pressure, wood, paper);
         propertiesInit(paperCombination, 29);  
 
@@ -369,7 +475,7 @@ public class Workshop extends JPanel{
         slots[slotNr][0].add(combination.getChild());
     }
 
-    public void showComponents() {
+    public void showItems() {
         //new GameFrame();
 
         // uses moveItem

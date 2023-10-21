@@ -7,7 +7,7 @@ public class CombinationManager {
         combinations.add(combination);
     }
 
-    public Component combineComponents(Component item1, Component item2){
+    public Item combineItems(Item item1, Item item2){
         for (Combination combination : combinations) {
             if (((combination.getParent1() == item1 && combination.getParent2() == item2) || (combination.getParent1() == item2 && combination.getParent2() == item1))){
                 return combination.getChild();
