@@ -227,6 +227,14 @@ public class Workshop extends JPanel{
         layeredPane.addMouseMotionListener(myMouseAdapter);
 
         this.add(layeredPane);
+
+        /*Component[] content1 = tableSlots[0].getComponents();
+        Component[] content2 = tableSlots[1].getComponents();
+        if(content1.length != 0 && content1[0] instanceof JLabel && content2.length != 0 && content2[0] instanceof JLabel) {
+            System.out.println("I'm mixing!");
+            mixing((Item)content1[0], (Item)content2[0]);
+        }*/
+
     }
 
     private class MyMouseAdapter extends MouseAdapter {
@@ -254,12 +262,27 @@ public class Workshop extends JPanel{
                 clickedPanel = (JPanel) defaultItemsPanel.getComponentAt(slotPoint);
             }
 
+            if (clickedPanel == null) {
+                return;
+            }
+
             Component[] components = clickedPanel.getComponents();
             if (components.length == 0) {
                 return;
             }
             if (components[0] instanceof JLabel) {
                 dragLabel = (JLabel) components[0];
+
+                //checks if an item is visible because if not the user shouldn't be able to move it
+                if (dragLabel.isVisible()==false) {
+                    clickedPanel.add(dragLabel);
+                    clickedPanel.revalidate();
+                    layeredPane.repaint();
+                    dragLabel = null;
+                    return;     
+                }
+                
+
                 clickedPanel.remove(dragLabel);
                 clickedPanel.revalidate();
                 clickedPanel.repaint();
@@ -298,18 +321,28 @@ public class Workshop extends JPanel{
             layeredPane.remove(dragLabel); //Remove dragLabel from the DRAG_LAYER
             Point pointInTableSlotsPanel = SwingUtilities.convertPoint(layeredPane, me.getPoint(), tableSlotsPanel);
             JPanel droppedPanel = (JPanel) tableSlotsPanel.getComponentAt(pointInTableSlotsPanel);
-            if (droppedPanel == null) {
+            
+            if (droppedPanel == null) { 
                 //If off the the shelves, return the label to its original location
                 clickedPanel.add(dragLabel);
                 clickedPanel.revalidate();
+
             } else {
-                int droppedOnTable = -1; //1 if first slot, 2 if the second
+
+                //checks if slot already full
+                Component[] components = droppedPanel.getComponents();
+                if(components.length != 0 && components[0] instanceof JLabel) {
+                    clickedPanel.add(dragLabel);
+                    clickedPanel.revalidate();
+                    layeredPane.repaint();
+                    dragLabel = null;
+                    return;                    
+                }
+
                 if(droppedPanel == tableSlots[0]){
-                    droppedOnTable = 1;
                     droppedPanel.add(dragLabel);
                     droppedPanel.revalidate();
                 } else if (droppedPanel == tableSlots[1]){
-                    droppedOnTable = 2;
                     droppedPanel.add(dragLabel);
                     droppedPanel.revalidate();
                 } else {
@@ -317,10 +350,27 @@ public class Workshop extends JPanel{
                     clickedPanel.revalidate();
                 }
             }
+
             layeredPane.repaint();
             dragLabel = null;
+
+            Component[] content1 = tableSlots[0].getComponents();
+            Component[] content2 = tableSlots[1].getComponents();
+            if(content1.length != 0 && content1[0] instanceof JLabel && content2.length != 0 && content2[0] instanceof JLabel) {
+                System.out.println("I'm mixing!");
+                mixing((Item)content1[0], (Item)content2[0]);
+            }
         }
 
+    }
+
+    public void mixing(Item Parent1, Item Parent2){
+        CombinationManager combination = new CombinationManager();
+        Item child = new Item(new ImageIcon("icons/questionMark.png"));
+        child = combination.combineItems(Parent1, Parent2);
+        child.setVisible(true);
+
+        //return child;
     }
 
     /*public void startGame(){
@@ -467,14 +517,16 @@ public class Workshop extends JPanel{
 
         Item paper = new Item(new ImageIcon("icons/paper.png"));
         Combination paperCombination = new Combination(pressure, wood, paper);
-        propertiesInit(paperCombination, 29);  
+        propertiesInit(paperCombination, 29); 
+        paper.setVisible(false); 
 
     }
 
     public void propertiesInit(Combination combination, int slotNr){
         CombinationManager.addCombination(combination);
-        combination.getChild().setVisible(true);
+        //combination.getChild().setVisible(true);
         slots[slotNr][0].add(combination.getChild());
+        combination.getChild().slotNumber = slotNr;
     }
 
     public void showItems() {
@@ -488,11 +540,6 @@ public class Workshop extends JPanel{
     private Point moveItem() {
         // to know the coord. of the place it is dropped?
         return null;
-    }
-
-    private void scroll() {
-        // for the shelves
-        // uses pageDisplayed
     }
 
     private void goToRecipeBook() {

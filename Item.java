@@ -13,6 +13,8 @@ public class Item extends JLabel{
     Point imageCorner;
     Point prevPt;
 
+    int slotNumber;
+
     public Item(ImageIcon icon) {
         image = icon;
         this.setIcon(icon);
@@ -51,8 +53,8 @@ public class Item extends JLabel{
         }
     }*/
 
-    public String combine(String item1, String item2) {
+    /*public String combine(String item1, String item2) {
         this.setVisible(true);
         return null;
-    }
+    }*/
 }
