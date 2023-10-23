@@ -1,8 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 
 public class Item extends JLabel{
     public String name;
@@ -24,6 +22,10 @@ public class Item extends JLabel{
         //DragListener dragListener = new DragListener();
         //this.addMouseListener(clickListener);
         //this.addMouseMotionListener(dragListener);
+    }
+
+    public void moveBack(Timer timer){
+        timer.start();
     }
 
     /*public void paintComponent(Graphics g) {
