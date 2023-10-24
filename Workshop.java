@@ -53,6 +53,10 @@ public class Workshop extends JPanel {
     JPanel tableSlotsPanel = new JPanel(new GridLayout(1, 2, 50, 0));
 
     JPanel defaultItemsPanel = new JPanel(new GridLayout(1, 4,16, 0));
+    //Graphics g2D;
+    CombinationManager checkCombo = new CombinationManager(); //should i have it here or move it inside a method?
+
+    StartPage startPage = new StartPage();
 
     Workshop(){
 
@@ -197,6 +201,7 @@ public class Workshop extends JPanel {
         layeredPane.add(bookButton, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(shopButton, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(defaultItemsPanel, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(startPage, Integer.valueOf(2));
 
         int xIvy = 5;
         int yIvy = 115;
@@ -235,6 +240,12 @@ public class Workshop extends JPanel {
             mixing((Item)content1[0], (Item)content2[0]);
         }*/
 
+    }
+
+    public void removeStartPage(JPanel startPage){
+        layeredPane.remove(startPage);
+        layeredPane.revalidate();
+        layeredPane.repaint();
     }
 
     private class MyMouseAdapter extends MouseAdapter {
@@ -354,6 +365,7 @@ public class Workshop extends JPanel {
             Component[] content1 = tableSlots[0].getComponents();
             Component[] content2 = tableSlots[1].getComponents();
             if(content1.length != 0 && content1[0] instanceof JLabel && content2.length != 0 && content2[0] instanceof JLabel) {
+                //checkCombo.newDiscovery(g2D);
                 mixing((Item)content1[0], (Item)content2[0]);
             }
 
@@ -363,10 +375,14 @@ public class Workshop extends JPanel {
 
     }
 
+
+    //add to the combination manager as a method
     public void mixing(Item Parent1, Item Parent2){
         CombinationManager combination = new CombinationManager();
         Item child = new Item(new ImageIcon("icons/questionMark.png"));
+    
         child = combination.combineItems(Parent1, Parent2);
+
         if (child == null) {
             slots[Parent1.slotNumber][0].add(Parent1);
             slots[Parent2.slotNumber][0].add(Parent2);
@@ -375,7 +391,6 @@ public class Workshop extends JPanel {
             tableSlots[1].remove(Parent2);
         } else {
             //consider multithreading so child and items can be added to shelves and removed from the table simultaneously
-
             child.setVisible(true);
 
             slots[Parent1.slotNumber][0].add(Parent1);
@@ -384,8 +399,6 @@ public class Workshop extends JPanel {
             tableSlots[0].remove(Parent1);
             tableSlots[1].remove(Parent2);
         }
-
-        //return child;
     }
 
     /*public void startGame(){

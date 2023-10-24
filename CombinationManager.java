@@ -1,3 +1,7 @@
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.*;
 
 public class CombinationManager {
@@ -16,4 +20,9 @@ public class CombinationManager {
 
         return null;
     }
+    
+    public void newDiscovery(Graphics g){
+        Graphics2D g2D = (Graphics2D) g;
+        g2D.fillRoundRect(100, 100, 200, 200, 35, 35);
+    } 
 }
