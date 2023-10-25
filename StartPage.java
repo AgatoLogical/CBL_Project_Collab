@@ -8,19 +8,31 @@ public class StartPage extends JPanel implements ActionListener{
     Image alchemistImage;
     JButton startButton;
     JPanel startPanel;
+    ImageIcon alchemistTitle;
+    JLabel titleLabel;
+    JPanel titlePanel;
+
 
 
     StartPage(){
         this.setBounds(0, 0, WIDTH, HEIGHT);
         this.setBackground(new Color(150, 119, 89));
-
-        alchemistImage = new ImageIcon("alchemist.png").getImage();
-
         this.setLayout(new BorderLayout(0,0));
-        
+
+        titlePanel = new JPanel(new BorderLayout());
+        alchemistImage = new ImageIcon("alchemist.png").getImage();
+        alchemistTitle = new ImageIcon("AlchemistTitle.png");
+        titleLabel = new JLabel();
         startPanel = new JPanel(new GridBagLayout());
+        
+        titlePanel.setOpaque(false);
+
         startPanel.setBackground(new Color(69, 37, 12));
         startPanel.setPreferredSize(new Dimension(400, 100));
+
+        titleLabel.setIcon(alchemistTitle);
+        titleLabel.setVerticalAlignment(JLabel.CENTER);
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0; // Center horizontally
@@ -29,18 +41,23 @@ public class StartPage extends JPanel implements ActionListener{
 
         //backgroundImage = new ImageIcon("").getImage();
         startButton = new JButton();
-        startButton.setPreferredSize(new Dimension(150, 50));
+        startButton.setPreferredSize(new Dimension(300, 50));
         startButton.setVisible(true);
 		startButton.addActionListener(this);
-		startButton.setText("NEW GAME");
+		//startButton.setText("NEW GAME");
 		startButton.setFocusable(false);
-		startButton.setHorizontalTextPosition(JButton.CENTER);
-		startButton.setVerticalTextPosition(JButton.BOTTOM);
 		startButton.setForeground(new Color(69, 37, 12));
 		startButton.setBackground(new Color(150, 119, 89));
 		startButton.setBorder(BorderFactory.createEtchedBorder());
+        startButton.setIcon(new ImageIcon("buttonImg.png"));
+        startButton.setHorizontalTextPosition(JButton.CENTER);
+		startButton.setVerticalTextPosition(JButton.BOTTOM);
 
-        startPanel.add(startButton, constraints);
+        titlePanel.add(titleLabel, BorderLayout.NORTH);
+        titlePanel.add(startButton, BorderLayout.SOUTH);
+
+        startPanel.add(titlePanel, constraints);
+        //startPanel.add(titleLabel, constraints);
         this.add(startPanel, BorderLayout.EAST);
     }
 
