@@ -14,6 +14,7 @@ public class CombinationManager {
     public Item combineItems(Item item1, Item item2){
         for (Combination combination : combinations) {
             if (((combination.getParent1() == item1 && combination.getParent2() == item2) || (combination.getParent1() == item2 && combination.getParent2() == item1))){
+                if (!combination.isDiscovered()) combination.setDiscovered(true);
                 return combination.getChild();
             }
         }
@@ -21,8 +22,8 @@ public class CombinationManager {
         return null;
     }
     
-    public void newDiscovery(Graphics g){
+    /*public void newDiscovery(Graphics g){
         Graphics2D g2D = (Graphics2D) g;
         g2D.fillRoundRect(100, 100, 200, 200, 35, 35);
-    } 
+    }*/
 }

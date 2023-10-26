@@ -4,24 +4,26 @@ import java.awt.event.*;
 
 public class Item extends JLabel{
     public String name;
-    public final int value = 0;
+    //public final int value = 0;
 
     ImageIcon image;
 
-    Point imageCorner;
-    Point prevPt;
-
     int slotNumber;
 
-    public Item(ImageIcon icon) {
+    //Andreea
+    private int valueOfItem = 0;
+    private static final int valueIncrease = 100;
+
+    public Item(ImageIcon icon, int category) {
         image = icon;
         this.setIcon(icon);
         this.setVisible(false);
-        imageCorner = new Point(0, 0);
+        this.valueOfItem = valueIncrease * category;
     }
 
-    public void moveBack(Timer timer){
-        timer.start();
+    public int getValue() {
+        return valueOfItem;
     }
+
 
 }

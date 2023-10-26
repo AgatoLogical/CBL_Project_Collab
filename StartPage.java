@@ -79,8 +79,6 @@ public class StartPage extends JPanel implements ActionListener{
             this.setVisible(false);
             
         }
-
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
 
     

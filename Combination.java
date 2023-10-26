@@ -4,7 +4,7 @@ public class Combination {
     private Item parent1;
     private Item parent2;
     private Item child;
-    private boolean discovered;
+    private boolean discovered = false;
 
     public Combination(Item comp1, Item comp2, Item resultItem) {
         this.parent1 = comp1;
@@ -22,6 +22,14 @@ public class Combination {
 
     public Item getChild(){
         return this.child;
+    }
+
+    public boolean isDiscovered() {
+        return this.discovered;
+    }
+
+    public void setDiscovered(boolean d){
+        this.discovered = d; 
     }
 
 }
