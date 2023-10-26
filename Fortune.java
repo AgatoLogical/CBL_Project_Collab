@@ -32,7 +32,7 @@ public class Fortune extends JPanel {
 
         this.add(label);
 
-        spendFortune(new Component(fortuneIcon));
+        // spendFortune(new Component(fortuneIcon));
 
     }
 

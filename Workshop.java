@@ -1,8 +1,11 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class Workshop extends JPanel {
+public class Workshop extends JPanel implements ActionListener {
 
     static final int SCREEN_WIDTH = 1200;
     static final int SCREEN_HEIGHT = 800;
@@ -49,6 +52,8 @@ public class Workshop extends JPanel {
     ImageIcon shopIcon = new ImageIcon("shop.png");
 
     public static Fortune fortune = new Fortune();
+
+    RecipeBook recipeBook = new RecipeBook();
 
     Workshop() {
 
@@ -174,6 +179,7 @@ public class Workshop extends JPanel {
         Border darkBorder = BorderFactory.createLineBorder(new Color(54, 31, 10));
         bookButton.setBackground(new Color(112, 81, 52));
         bookButton.setBorder(darkBorder);
+        bookButton.addActionListener(this);
         shopButton.setBounds(150, 680, 100, 100);
         shopButton.setFocusable(false);
         shopButton.setIcon(shopIcon);
@@ -249,21 +255,33 @@ public class Workshop extends JPanel {
         Component lava = new Component(new ImageIcon("icons/lava.png"));
         lava.setValue(1);
         Combination lavaCombination = new Combination(earth, fire, lava);
+        ImageIcon lavaIcon = new ImageIcon("icons/lava.png");
+        lavaIcon.setDescription("lava");
+        recipeBook.addRecipe(new Recipe(lavaIcon));
         propertiesInit(lavaCombination, 0);
 
         Component plant = new Component(new ImageIcon("icons/plant.png"));
         plant.setValue(1);
         Combination plantCombination = new Combination(earth, water, plant);
+        ImageIcon planyIcon = new ImageIcon("icons/plant.png");
+        planyIcon.setDescription("plant");
+        recipeBook.addRecipe(new Recipe(planyIcon));
         propertiesInit(plantCombination, 1);
 
         Component tree = new Component(new ImageIcon("icons/tree.png"));
         tree.setValue(1);
         Combination treeCombination = new Combination(plant, water, tree);
+        ImageIcon treeIcon = new ImageIcon("icons/tree.png");
+        treeIcon.setDescription("tree");
+        recipeBook.addRecipe(new Recipe(treeIcon));
         propertiesInit(treeCombination, 2);
 
         Component wood = new Component(new ImageIcon("icons/wood.png"));
         wood.setValue(1);
         Combination woodCombination = new Combination(earth, tree, wood);
+        ImageIcon woodIcon = new ImageIcon("icons/wood.png");
+        woodIcon.setDescription("wood");
+        recipeBook.addRecipe(new Recipe(woodIcon));
         propertiesInit(woodCombination, 3);
 
         Component stone = new Component(new ImageIcon("icons/stone.png"));
@@ -271,133 +289,211 @@ public class Workshop extends JPanel {
         Component sand = new Component(new ImageIcon("icons/sand.png"));
         sand.setValue(1);
         Combination sandCombination = new Combination(air, stone, sand);
+        ImageIcon sandIcon = new ImageIcon("icons/sand.png");
+        sandIcon.setDescription("sand");
+        recipeBook.addRecipe(new Recipe(sandIcon));
         propertiesInit(sandCombination, 4);
 
         Component mud = new Component(new ImageIcon("icons/mud.png"));
         mud.setValue(1);
         Combination mudCombination = new Combination(earth, water, mud);
+        ImageIcon mudIcon = new ImageIcon("icons/mud.png");
+        mudIcon.setDescription("mud");
+        recipeBook.addRecipe(new Recipe(mudIcon));
         propertiesInit(mudCombination, 5);
 
         Component dust = new Component(new ImageIcon("icons/dust.png"));
         dust.setValue(1);
         Combination dustCombination = new Combination(air, earth, dust);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        recipeBook.addRecipe(new Recipe(new ImageIcon("icons/dust.png")));
         propertiesInit(dustCombination, 6);
 
         Component energy = new Component(new ImageIcon("icons/energy.png"));
         energy.setValue(1);
         Combination energyCombination = new Combination(air, fire, energy);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(energyCombination, 7);
 
         Component pressure = new Component(new ImageIcon("icons/pressure.png"));
         pressure.setValue(1);
         Combination pressureCombination = new Combination(air, energy, pressure);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(pressureCombination, 8);
 
         // -----------------------------STONE AGE--------------------------------//
         stone.setValue(2);
         Combination stoneCombination = new Combination(air, lava, stone);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(stoneCombination, 9);
 
         Component boat = new Component(new ImageIcon("icons/boat.png"));
         boat.setValue(2);
         Combination boatCombination = new Combination(water, wood, boat);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(boatCombination, 10);
 
         Component clay = new Component(new ImageIcon("icons/clay.png"));
         clay.setValue(2);
         Combination clayCombination = new Combination(mud, sand, clay);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(clayCombination, 11);
 
         Component pottery = new Component(new ImageIcon("icons/pottery.png"));
         pottery.setValue(2);
         Combination potteryCombination = new Combination(clay, fire, pottery);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(potteryCombination, 12);
 
         Component tools = new Component(new ImageIcon("icons/tools.png"));
         tools.setValue(2);
         Combination toolsCombination = new Combination(stone, wood, tools);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(toolsCombination, 13);
 
         Component wheel = new Component(new ImageIcon("icons/wheel.png"));
         wheel.setValue(2);
         Combination wheelCombination = new Combination(tools, wood, wheel);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(wheelCombination, 14);
 
         Component farming = new Component(new ImageIcon("icons/farming.png"));
         farming.setValue(2);
         Combination farmingCombination = new Combination(earth, tools, farming);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(farmingCombination, 15);
 
         Component gold = new Component(new ImageIcon("icons/gold.png"));
         gold.setValue(2);
         Combination goldCombination = new Combination(stone, tools, gold);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(goldCombination, 16);
 
         // -----------------------------IRON AGE--------------------------------//
         Component metal = new Component(new ImageIcon("icons/metal.png"));
         metal.setValue(3);
         Combination metalCombination = new Combination(air, lava, metal);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(metalCombination, 17);
 
         Component sword = new Component(new ImageIcon("icons/sword.png"));
         sword.setValue(3);
         Combination swordCombination = new Combination(water, wood, sword);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(swordCombination, 18);
 
         Component waterWheel = new Component(new ImageIcon("icons/waterWheel.png"));
         waterWheel.setValue(3);
         Combination waterWheelCombination = new Combination(mud, sand, waterWheel);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(waterWheelCombination, 19);
 
         Component glass = new Component(new ImageIcon("icons/glass.png"));
         glass.setValue(3);
         Combination glassCombination = new Combination(clay, fire, glass);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(glassCombination, 20);
 
         Component mirror = new Component(new ImageIcon("icons/mirror.png"));
         mirror.setValue(3);
         Combination mirrorCombination = new Combination(stone, wood, mirror);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(mirrorCombination, 21);
 
         Component coins = new Component(new ImageIcon("icons/coins.png"));
         coins.setValue(3);
         Combination coinsCombination = new Combination(tools, wood, coins);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(coinsCombination, 22);
 
         // -----------------------------MODERN--------------------------------//
         Component gunpowder = new Component(new ImageIcon("icons/gunpowder.png"));
         gunpowder.setValue(4);
         Combination gunpowderCombination = new Combination(dust, fire, gunpowder);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(gunpowderCombination, 23);
 
         Component explosion = new Component(new ImageIcon("icons/explosion.png"));
         explosion.setValue(4);
         Combination explosionCombination = new Combination(fire, gunpowder, explosion);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(explosionCombination, 24);
 
         Component atomicBomb = new Component(new ImageIcon("icons/atomicBomb.png"));
         atomicBomb.setValue(4);
         Combination atomicBombCombination = new Combination(energy, explosion, atomicBomb);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(atomicBombCombination, 25);
 
         Component electricity = new Component(new ImageIcon("icons/electricity.png"));
         electricity.setValue(4);
         Combination electricityCombination = new Combination(energy, metal, electricity);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(electricityCombination, 26);
 
         Component computer = new Component(new ImageIcon("icons/computer.png"));
         computer.setValue(4);
         Combination computerCombination = new Combination(electricity, tools, computer);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(computerCombination, 27);
 
         Component lightbulb = new Component(new ImageIcon("icons/lightbulb.png"));
         lightbulb.setValue(4);
         Combination lightbulbCombination = new Combination(electricity, glass, lightbulb);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(lightbulbCombination, 28);
 
         Component paper = new Component(new ImageIcon("icons/paper.png"));
         paper.setValue(4);
         Combination paperCombination = new Combination(pressure, wood, paper);
+        // ImageIcon = new ImageIcon("icons/.png");
+        // .setDescription("");
+        // recipeBook.addRecipe(new Recipe());
         propertiesInit(paperCombination, 29);
 
     }
@@ -408,27 +504,16 @@ public class Workshop extends JPanel {
         slots[slotNr][0].add(combination.getChild());
     }
 
-    public void showComponents() {
-        // new GameFrame();
-
-        // uses moveItem
-        // uses goToRecipeBook?
-        // uses scroll
-    }
-
-    private Point moveItem() {
-        // to know the coord. of the place it is dropped?
-        return null;
-    }
-
     private void scroll() {
         // for the shelves
         // uses pageDisplayed
     }
 
-    private void goToRecipeBook() {
-        // when the button is clicked...
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == bookButton) {
+            recipeBook.openBook();
+        }
     }
 
-    // goToShop
 }

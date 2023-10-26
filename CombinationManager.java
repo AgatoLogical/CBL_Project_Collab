@@ -20,4 +20,13 @@ public class CombinationManager {
 
         return null;
     }
+
+    public Combination getParents(Component item) {
+        for (Combination combination : combinations) {
+            if (combination.getChild() == item) {
+                return combination;
+            }
+        }
+        return null;
+    }
 }
