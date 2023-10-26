@@ -186,7 +186,7 @@ public class Workshop extends JPanel {
         bookButton.setIcon(bookIcon);
         Border darkBorder = BorderFactory.createLineBorder(new Color(54, 31, 10));
         bookButton.setBackground(new Color(112, 81, 52));
-        bookButton.setBorder(darkBorder);
+        //bookButton.setBorder(darkBorder);
         shopButton.setBounds(150, 680, 100, 100);
         shopButton.setFocusable(false);
         shopButton.setIcon(shopIcon);
