@@ -8,44 +8,48 @@ public class Message extends JPanel implements ActionListener{
     JLabel textLabel;
     ImageIcon itemImage;
     JButton closeButton;
+    JPanel buttonPanel;
 
     Message(Item item){
-        this.setBounds(425, 190, 350, 220);
-        this.setBorder(BorderFactory.createLineBorder(new Color(204, 173, 4), 5));
+        this.setBounds(425, 185, 350, 255);
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(69, 37, 12));
 
         textLabel = new JLabel();
-        textLabel.setText("<html><center>New Item Discovered:<br>" + item.name + "</center></html>");
+        textLabel.setText("<html><br><center>New Item Discovered:<br>" + item.name + "</center></html>");
         textLabel.setIcon(item.image);
 		textLabel.setHorizontalTextPosition(JLabel.CENTER); //set text LEFT,CENTER, RIGHT of imageicon
 		textLabel.setVerticalTextPosition(JLabel.TOP); //set text TOP,CENTER, BOTTOM of imageicon
 		textLabel.setForeground(new Color(250, 219, 195)); //set font color of text
 		textLabel.setFont(new Font("Courier New", Font.PLAIN, 20)); //set font of text
-		textLabel.setIconTextGap(20); //set gap of text to image
+		textLabel.setIconTextGap(15); //set gap of text to image
 		textLabel.setOpaque(false); //display background color
 		textLabel.setVerticalAlignment(JLabel.CENTER); //set vertical position of icon+text within label
 		textLabel.setHorizontalAlignment(JLabel.CENTER); //set horizontal position of icon+text within label
 
+        buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setPreferredSize(new Dimension(350, 70));
+        buttonPanel.setOpaque(false);
+
         closeButton = new JButton();
-        closeButton.setPreferredSize(new Dimension(150, 50));
+        closeButton.setPreferredSize(new Dimension(60, 40));
         closeButton.setVisible(true);
 		closeButton.addActionListener(this);
 		closeButton.setFocusable(false);
-		closeButton.setForeground(new Color(69, 37, 12));
-		closeButton.setBackground(new Color(150, 119, 89));
-		closeButton.setBorder(BorderFactory.createEtchedBorder());
-        closeButton.setIcon(new ImageIcon("buttonImg.png"));
-        closeButton.setHorizontalTextPosition(JButton.CENTER);
-		closeButton.setVerticalTextPosition(JButton.BOTTOM);
+		//closeButton.setForeground(new Color(69, 37, 12));
+		//closeButton.setBackground(new Color(150, 119, 89));
+		//closeButton.setBorder(BorderFactory.createEtchedBorder());
+        closeButton.setBackground(new Color(150, 119, 89));
+        closeButton.setBorder(BorderFactory.createEtchedBorder());
+        closeButton.setIcon(new ImageIcon("close.png"));
+        //closeButton.setHorizontalTextPosition(JButton.CENTER);
+		//closeButton.setVerticalTextPosition(JButton.BOTTOM);
+        buttonPanel.add(closeButton);
 
         this.add(textLabel, BorderLayout.NORTH);
-        this.add(closeButton, BorderLayout.SOUTH);
-
-        this.add(Box.createRigidArea(new Dimension(5, 10))); // Add space at the top
-        this.add(textLabel, BorderLayout.NORTH);
-        this.add(Box.createRigidArea(new Dimension(5, 10))); // Add space between the text and button
-        this.add(closeButton, BorderLayout.SOUTH);
+        this.add(buttonPanel, BorderLayout.SOUTH);
 
     }
 

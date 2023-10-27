@@ -10,6 +10,8 @@ public class Item extends JLabel{
 
     int slotNumber;
 
+    Boolean isDicovered = false;
+
     //Andreea
     private int valueOfItem = 0;
     private static final int valueIncrease = 100;

@@ -392,8 +392,12 @@ public class Workshop extends JPanel implements ActionListener{
             //consider multithreading so child and items can be added to shelves and removed from the table simultaneously
             child.setVisible(true);
 
-            message = new Message(child);
-            layeredPane.add(message, Integer.valueOf(2));
+            if (!child.isDicovered) {
+                message = new Message(child);
+                layeredPane.add(message, Integer.valueOf(2));
+            }
+
+            child.isDicovered = true;
 
             slots[Parent1.slotNumber][0].add(Parent1);
             slots[Parent2.slotNumber][0].add(Parent2);
