@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 
-public class Workshop extends JPanel {
+public class Workshop extends JPanel implements ActionListener{
 
     static final int SCREEN_WIDTH = 1200;
     static final int SCREEN_HEIGHT = 800;
@@ -59,6 +59,8 @@ public class Workshop extends JPanel {
     StartPage startPage = new StartPage();
 
     public Fortune fortune = new Fortune();
+
+    Message message;
 
     Workshop(){
 
@@ -186,6 +188,7 @@ public class Workshop extends JPanel {
         bookButton.setIcon(bookIcon);
         Border darkBorder = BorderFactory.createLineBorder(new Color(54, 31, 10));
         bookButton.setBackground(new Color(112, 81, 52));
+        bookButton.addActionListener(this);
         //bookButton.setBorder(darkBorder);
         shopButton.setBounds(150, 680, 100, 100);
         shopButton.setFocusable(false);
@@ -389,6 +392,9 @@ public class Workshop extends JPanel {
             //consider multithreading so child and items can be added to shelves and removed from the table simultaneously
             child.setVisible(true);
 
+            message = new Message(child);
+            layeredPane.add(message, Integer.valueOf(2));
+
             slots[Parent1.slotNumber][0].add(Parent1);
             slots[Parent2.slotNumber][0].add(Parent2);
 
@@ -399,6 +405,13 @@ public class Workshop extends JPanel {
         }
     }
 
+    public void removeMessage(Message message){
+        layeredPane.remove(message);
+
+        layeredPane.revalidate();
+        layeredPane.repaint();
+    }
+
     /*public void startGame(){
         init();
     }*/
@@ -407,58 +420,58 @@ public class Workshop extends JPanel {
     public void itemsInit() {
 
         //-----------------------------NATURE--------------------------------//
-        Item air = new Item(new ImageIcon("icons/air.png"), 0);
+        Item air = new Item(new ImageIcon("icons/air.png"), 0, "Air");
         air.setVisible(true);
         air.slotNumber = 30;
         slots[30][0].add(air);
-        Item earth = new Item(new ImageIcon("icons/earth.png"), 0);
+        Item earth = new Item(new ImageIcon("icons/earth.png"), 0, "Earth");
         earth.setVisible(true);
         earth.slotNumber = 31;
         slots[31][0].add(earth);
-        Item fire = new Item(new ImageIcon("icons/fire.png"), 0);
+        Item fire = new Item(new ImageIcon("icons/fire.png"), 0, "Fire");
         fire.setVisible(true);
         fire.slotNumber = 32;
         slots[32][0].add(fire);
-        Item water = new Item(new ImageIcon("icons/water.png"), 0);
+        Item water = new Item(new ImageIcon("icons/water.png"), 0, "Water");
         water.setVisible(true);
         water.slotNumber = 33;
         slots[33][0].add(water);
 
-        Item lava = new Item(new ImageIcon("icons/lava.png"), 1);
+        Item lava = new Item(new ImageIcon("icons/lava.png"), 1, "Lava");
         Combination lavaCombination = new Combination(earth, fire, lava);
         propertiesInit(lavaCombination, 0);
 
-        Item plant = new Item(new ImageIcon("icons/plant.png"), 1);
+        Item plant = new Item(new ImageIcon("icons/plant.png"), 1, "Plant");
         Combination plantCombination = new Combination(earth, water, plant);
         propertiesInit(plantCombination, 1);
 
-        Item tree = new Item(new ImageIcon("icons/tree.png"), 1);
+        Item tree = new Item(new ImageIcon("icons/tree.png"), 1, "Tree");
         Combination treeCombination = new Combination(plant, water, tree);
         propertiesInit(treeCombination, 2);
 
-        Item wood = new Item(new ImageIcon("icons/wood.png"), 1);
+        Item wood = new Item(new ImageIcon("icons/wood.png"), 1, "Wood");
         Combination woodCombination = new Combination(earth, tree, wood);
         propertiesInit(woodCombination, 3);
 
-        Item stone = new Item(new ImageIcon("icons/stone.png"), 1);
+        Item stone = new Item(new ImageIcon("icons/stone.png"), 1, "Stone");
 
-        Item sand = new Item(new ImageIcon("icons/sand.png"), 1);
+        Item sand = new Item(new ImageIcon("icons/sand.png"), 1, "Sand");
         Combination sandCombination = new Combination(air, stone, sand);
         propertiesInit(sandCombination, 4);
 
-        Item mud = new Item(new ImageIcon("icons/mud.png"), 1);
+        Item mud = new Item(new ImageIcon("icons/mud.png"), 1, "Mud");
         Combination mudCombination = new Combination(sand, water, mud);
         propertiesInit(mudCombination, 5);
 
-        Item dust = new Item(new ImageIcon("icons/dust.png"), 1);
+        Item dust = new Item(new ImageIcon("icons/dust.png"), 1, "Dust");
         Combination dustCombination = new Combination(air, earth, dust);
         propertiesInit(dustCombination, 6);
 
-        Item energy = new Item(new ImageIcon("icons/energy.png"), 1);
+        Item energy = new Item(new ImageIcon("icons/energy.png"), 1, "Energy");
         Combination energyCombination = new Combination(air, fire, energy);
         propertiesInit(energyCombination, 7);
 
-        Item pressure = new Item(new ImageIcon("icons/pressure.png"), 1);
+        Item pressure = new Item(new ImageIcon("icons/pressure.png"), 1, "Pressure");
         Combination pressureCombination = new Combination(air, energy, pressure);
         propertiesInit(pressureCombination, 8);
 
@@ -467,85 +480,85 @@ public class Workshop extends JPanel {
         Combination stoneCombination = new Combination(air, lava, stone);
         propertiesInit(stoneCombination, 9);
 
-        Item boat = new Item(new ImageIcon("icons/boat.png"), 2);
+        Item boat = new Item(new ImageIcon("icons/boat.png"), 2, "Boat");
         Combination boatCombination = new Combination(water, wood, boat);
         propertiesInit(boatCombination, 10);
 
-        Item clay = new Item(new ImageIcon("icons/clay.png"), 2);
+        Item clay = new Item(new ImageIcon("icons/clay.png"), 2, "Clay");
         Combination clayCombination = new Combination(mud, sand, clay);
         propertiesInit(clayCombination, 11);
 
-        Item pottery = new Item(new ImageIcon("icons/pottery.png"), 2);
+        Item pottery = new Item(new ImageIcon("icons/pottery.png"), 2, "Pottery");
         Combination potteryCombination = new Combination(clay, fire, pottery);
         propertiesInit(potteryCombination, 12);
 
-        Item tools = new Item(new ImageIcon("icons/tools.png"), 2);
+        Item tools = new Item(new ImageIcon("icons/tools.png"), 2, "Tools");
         Combination toolsCombination = new Combination(stone, wood, tools);
         propertiesInit(toolsCombination, 13);
 
-        Item wheel = new Item(new ImageIcon("icons/wheel.png"), 2);
+        Item wheel = new Item(new ImageIcon("icons/wheel.png"), 2, "Wheel");
         Combination wheelCombination = new Combination(tools, wood, wheel);
         propertiesInit(wheelCombination, 14);
 
-        Item farming = new Item(new ImageIcon("icons/farming.png"), 2);
+        Item farming = new Item(new ImageIcon("icons/farming.png"), 2, "Farming");
         Combination farmingCombination = new Combination(earth, tools, farming);
         propertiesInit(farmingCombination, 15);
     
-        Item gold = new Item(new ImageIcon("icons/gold.png"), 2);
+        Item gold = new Item(new ImageIcon("icons/gold.png"), 2, "Gold");
         Combination goldCombination = new Combination(stone, tools, gold);
         propertiesInit(goldCombination, 16);
 
         //-----------------------------IRON AGE--------------------------------//
-        Item metal = new Item(new ImageIcon("icons/metal.png"), 3);
+        Item metal = new Item(new ImageIcon("icons/metal.png"), 3, "Metal");
         Combination metalCombination = new Combination(fire, stone, metal);
         propertiesInit(metalCombination, 17);
 
-        Item sword = new Item(new ImageIcon("icons/sword.png"), 3);
+        Item sword = new Item(new ImageIcon("icons/sword.png"), 3, "Sword");
         Combination swordCombination = new Combination(metal, wood, sword);
         propertiesInit(swordCombination, 18);
 
-        Item waterWheel = new Item(new ImageIcon("icons/waterWheel.png"), 3);
+        Item waterWheel = new Item(new ImageIcon("icons/waterWheel.png"), 3, "Water Wheel");
         Combination waterWheelCombination = new Combination(water, wheel, waterWheel);
         propertiesInit(waterWheelCombination, 19);
 
-        Item glass = new Item(new ImageIcon("icons/glass.png"), 3);
+        Item glass = new Item(new ImageIcon("icons/glass.png"), 3, "Glass");
         Combination glassCombination = new Combination(sand, fire, glass);
         propertiesInit(glassCombination, 20);
 
-        Item mirror = new Item(new ImageIcon("icons/mirror.png"), 3);
+        Item mirror = new Item(new ImageIcon("icons/mirror.png"), 3, "Mirror");
         Combination mirrorCombination = new Combination(glass, metal, mirror);
         propertiesInit(mirrorCombination, 21);
 
-        Item coins = new Item(new ImageIcon("icons/coins.png"), 3);
+        Item coins = new Item(new ImageIcon("icons/coins.png"), 3, "Coins");
         Combination coinsCombination = new Combination(gold, tools, coins);
         propertiesInit(coinsCombination, 22);        
 
         //-----------------------------MODERN--------------------------------//
-        Item gunpowder = new Item(new ImageIcon("icons/gunpowder.png"), 4);
+        Item gunpowder = new Item(new ImageIcon("icons/gunpowder.png"), 4, "Gunpowder");
         Combination gunpowderCombination = new Combination(dust, fire, gunpowder);
         propertiesInit(gunpowderCombination, 23);  
 
-        Item explosion = new Item(new ImageIcon("icons/explosion.png"), 4);
+        Item explosion = new Item(new ImageIcon("icons/explosion.png"), 4, "Explosion");
         Combination explosionCombination = new Combination(fire, gunpowder, explosion);
         propertiesInit(explosionCombination, 24);  
 
-        Item atomicBomb = new Item(new ImageIcon("icons/atomicBomb.png"), 4);
+        Item atomicBomb = new Item(new ImageIcon("icons/atomicBomb.png"), 4, "Atomic Bomb");
         Combination atomicBombCombination = new Combination(energy, explosion, atomicBomb);
         propertiesInit(atomicBombCombination, 25);  
 
-        Item electricity = new Item(new ImageIcon("icons/electricity.png"), 4);
+        Item electricity = new Item(new ImageIcon("icons/electricity.png"), 4, "Electricity");
         Combination electricityCombination = new Combination(energy, metal, electricity);
         propertiesInit(electricityCombination, 26);  
 
-        Item computer = new Item(new ImageIcon("icons/computer.png"), 4);
+        Item computer = new Item(new ImageIcon("icons/computer.png"), 4, "Computer");
         Combination computerCombination = new Combination(electricity, tools, computer);
         propertiesInit(computerCombination, 27);  
 
-        Item lightbulb = new Item(new ImageIcon("icons/lightbulb.png"), 4);
+        Item lightbulb = new Item(new ImageIcon("icons/lightbulb.png"), 4, "Lightbulb");
         Combination lightbulbCombination = new Combination(electricity, glass, lightbulb);
         propertiesInit(lightbulbCombination, 28);  
 
-        Item paper = new Item(new ImageIcon("icons/paper.png"), 4);
+        Item paper = new Item(new ImageIcon("icons/paper.png"), 4, "Paper");
         Combination paperCombination = new Combination(pressure, wood, paper);
         propertiesInit(paperCombination, 29); 
         paper.setVisible(false); 
@@ -556,6 +569,7 @@ public class Workshop extends JPanel {
         CombinationManager.addCombination(combination);
         //combination.getChild().setVisible(true);
         slots[slotNr][0].add(combination.getChild());
+        slots[slotNr][0].item = combination.getChild();
         combination.getChild().slotNumber = slotNr;
     }
 
@@ -574,6 +588,16 @@ public class Workshop extends JPanel {
 
     private void goToRecipeBook() {
         // when the button is clicked...
+    }
+
+
+    //go to recipe book
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource() == bookButton){
+            RecipeBook recipeBook = new RecipeBook();
+        }
     }
 
     // goToShop

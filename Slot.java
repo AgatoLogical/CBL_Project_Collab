@@ -7,12 +7,16 @@ public class Slot extends JPanel{
     public static final int length = 50;
     public int pageID;
     public boolean isEmpty;
-    public Item Item;
+    public Item item;
 
     public Slot(Point corner, int page) {
         this.leftCorner = corner;
         this.pageID = page;
         this.isEmpty = true;
+    }
+
+    public Item getItem(){
+        return this.item;
     }
 
     public void add(Point corner, int page, Item item) {
