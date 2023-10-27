@@ -31,6 +31,7 @@ public class RecipePage extends JPanel implements ActionListener {
         unlockButton.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0, 100)));
         unlockButton.addActionListener(this);
 
+        layeredPane.setBounds((int) leftCorner.getX(), (int) leftCorner.getY(), width, height);
         layeredPane.add(recipePanel[0], JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(unlockButton, Integer.valueOf(2));
         this.add(layeredPane);
@@ -66,5 +67,6 @@ public class RecipePage extends JPanel implements ActionListener {
     public void openPage(Recipe recip) {
         this.init(recip);
         this.setVisible(true);
+
     }
 }

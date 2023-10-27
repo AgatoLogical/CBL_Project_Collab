@@ -62,7 +62,8 @@ public class RecipeBook extends JFrame implements ActionListener {
         int x = 150;
         int y = 150;
         // Border darkBorder = BorderFactory.createLineBorder(new Color(109, 74, 35));
-        Border lightBorder = BorderFactory.createLineBorder(new Color(199, 163, 121));
+        Border lightBorder = BorderFactory.createDashedBorder(new Color(199, 163, 121),
+                (float) 2.5, (float) 1, (float) 1, true);
 
         for (i = 0; i <= 5; i++) {
             x = 150;
@@ -92,12 +93,11 @@ public class RecipeBook extends JFrame implements ActionListener {
         int x = 0;
         for (int i = 0; i <= 5; i++) {
             for (int j = 0; j <= 4; j++) {
-                recipeButtons[i][j].setIcon(recipes.get(x).getIcon());
                 recipeButtons[i][j].setName(recipes.get(x).name);
                 if (recipes.get(x).getValue() < 200) {
                     recipes.get(x).unlock();
-                    recipeButtons[i][j].setIcon(recipes.get(x).getIcon());
                 }
+                recipeButtons[i][j].setIcon(recipes.get(x).getIcon());
                 x++;
             }
         }
