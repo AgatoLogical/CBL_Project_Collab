@@ -2,15 +2,15 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-public class Item extends JLabel{
+public class Item extends JLabel {
     public String name;
-    //public final int value = 0;
+    // public final int value = 0;
 
     ImageIcon image;
 
     int slotNumber;
 
-    //Andreea
+    // Andreea
     private int valueOfItem = 0;
     private static final int valueIncrease = 100;
 
@@ -24,6 +24,5 @@ public class Item extends JLabel{
     public int getValue() {
         return valueOfItem;
     }
-
 
 }
