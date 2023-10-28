@@ -413,22 +413,33 @@ public class Workshop extends JPanel implements ActionListener {
     public void itemsInit() {
 
         // -----------------------------NATURE--------------------------------//
-        Item air = new Item(new ImageIcon("icons/air.png"), 0);
+        ImageIcon airIcon = new ImageIcon("icons/air.png", "air");
+        Item air = new Item(airIcon, 0);
         air.setVisible(true);
         air.slotNumber = 30;
         slots[30][0].add(air);
-        Item earth = new Item(new ImageIcon("icons/earth.png"), 0);
+        recipInit(airIcon, 0);
+
+        ImageIcon earthIcon = new ImageIcon("icons/earth.png", "earth");
+        Item earth = new Item(earthIcon, 0);
         earth.setVisible(true);
         earth.slotNumber = 31;
         slots[31][0].add(earth);
-        Item fire = new Item(new ImageIcon("icons/fire.png"), 0);
+        recipInit(earthIcon, 0);
+
+        ImageIcon fireIcon = new ImageIcon("icons/fire.png", "fire");
+        Item fire = new Item(fireIcon, 0);
         fire.setVisible(true);
         fire.slotNumber = 32;
         slots[32][0].add(fire);
-        Item water = new Item(new ImageIcon("icons/water.png"), 0);
+        recipInit(fireIcon, 0);
+
+        ImageIcon waterIcon = new ImageIcon("icons/water.png", "water");
+        Item water = new Item(waterIcon, 0);
         water.setVisible(true);
         water.slotNumber = 33;
         slots[33][0].add(water);
+        recipInit(waterIcon, 0);
 
         ImageIcon lavaIcon = new ImageIcon("icons/lava.png", "lava");
         Item lava = new Item(lavaIcon, 1);

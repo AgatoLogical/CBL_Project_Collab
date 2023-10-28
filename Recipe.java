@@ -10,9 +10,9 @@ public class Recipe extends Item {
 
     public Recipe(ImageIcon compIcon, int category) {
         super(compIcon, category);
-        super.image = changeSize(compIcon);
+        super.image = changeSize(compIcon, 55);
         this.name = compIcon.getDescription();
-        lockIcon = changeSize(lockIcon);
+        lockIcon = changeSize(lockIcon, 55);
         this.setIcon(lockIcon);
         this.setVisible(false);
         locked = true;
@@ -23,9 +23,9 @@ public class Recipe extends Item {
         locked = false;
     }
 
-    private ImageIcon changeSize(ImageIcon imageIcon) {
+    public ImageIcon changeSize(ImageIcon imageIcon, int length) {
         Image image = imageIcon.getImage();
-        Image newimg = image.getScaledInstance(55, 55, java.awt.Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(length, length, java.awt.Image.SCALE_SMOOTH);
         imageIcon = new ImageIcon(newimg);
         return imageIcon;
     }

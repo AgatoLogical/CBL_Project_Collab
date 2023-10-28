@@ -12,15 +12,15 @@ public class Combination {
         this.child = resultItem;
     }
 
-    public Item getParent1(){
+    public Item getParent1() {
         return this.parent1;
     }
 
-    public Item getParent2(){
+    public Item getParent2() {
         return this.parent2;
     }
 
-    public Item getChild(){
+    public Item getChild() {
         return this.child;
     }
 
@@ -28,8 +28,8 @@ public class Combination {
         return this.discovered;
     }
 
-    public void setDiscovered(boolean d){
-        this.discovered = d; 
+    public void setDiscovered(boolean d) {
+        this.discovered = d;
     }
 
 }

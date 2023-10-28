@@ -6,7 +6,7 @@ public class Item extends JLabel {
     public String name;
     // public final int value = 0;
 
-    ImageIcon image;
+    public ImageIcon image;
 
     int slotNumber;
 
@@ -16,6 +16,7 @@ public class Item extends JLabel {
 
     public Item(ImageIcon icon, int category) {
         image = icon;
+        this.name = icon.getDescription();
         this.setIcon(icon);
         this.setVisible(false);
         this.valueOfItem = valueIncrease * category;

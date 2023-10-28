@@ -82,7 +82,7 @@ public class RecipeBook extends JFrame implements ActionListener {
 
         }
 
-        layeredPane.add(recipePage, Integer.valueOf(1));
+        layeredPane.add(recipePage, Integer.valueOf(2));
         this.add(layeredPane);
 
         this.pack();
@@ -90,7 +90,7 @@ public class RecipeBook extends JFrame implements ActionListener {
 
     // everything after this was added after it started not working
     void init() {
-        int x = 0;
+        int x = 4;
         for (int i = 0; i <= 5; i++) {
             for (int j = 0; j <= 4; j++) {
                 recipeButtons[i][j].setName(recipes.get(x).name);
