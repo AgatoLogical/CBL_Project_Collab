@@ -82,6 +82,8 @@ public class RecipeBook extends JFrame implements ActionListener {
 
         }
 
+        recipePage.setBounds(600, 150, 485, 510);
+        recipePage.setBorder(lightBorder);
         layeredPane.add(recipePage, Integer.valueOf(2));
         this.add(layeredPane);
 
@@ -109,6 +111,7 @@ public class RecipeBook extends JFrame implements ActionListener {
             for (int j = 0; j <= 4; j++) {
                 if (e.getSource() == recipeButtons[i][j]) {
                     this.openPage(recipeButtons[i][j]);
+                    this.init();
                 }
             }
         }
