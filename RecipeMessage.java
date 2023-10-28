@@ -11,7 +11,7 @@ public class RecipeMessage extends JPanel implements ActionListener {
     ImageIcon backgroundIcon = new ImageIcon("piece_of_paper.png");
     JLabel backgroundLabel = new JLabel();
 
-    ImageIcon textIcon = new ImageIcon("no_coins_message2.png");
+    ImageIcon textIcon = new ImageIcon("coins_sketch.png");
     JLabel textLabel = new JLabel();
 
     ImageIcon closeIcon = new ImageIcon("close_button_book.png");
@@ -37,15 +37,21 @@ public class RecipeMessage extends JPanel implements ActionListener {
         this.backgroundLabel.setBounds(0, 0, width, height);
         this.backgroundLabel.setOpaque(true);
 
+        this.textLabel.setText("Not enough");
         image = textIcon.getImage();
-        newImg = image.getScaledInstance(width - 25, height - 75, java.awt.Image.SCALE_SMOOTH);
+        newImg = image.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
         textIcon = new ImageIcon(newImg);
         this.textLabel.setIcon(textIcon);
+        this.textLabel.setForeground(new Color(0, 32, 96));
+        this.textLabel.setFont(new Font("Blackadder ITC", Font.BOLD, 32));
 
         this.textLabel.setBackground(new Color(5, 0, 0, 0));
-        this.textLabel.setBounds(15, 50, width - 25, height - 75);
+        this.textLabel.setBounds(1, 1, width - 1, height - 1);
         this.textLabel.setHorizontalAlignment(JLabel.CENTER);
         this.textLabel.setVerticalAlignment(JLabel.CENTER);
+        this.textLabel.setHorizontalTextPosition(JLabel.CENTER);
+        this.textLabel.setVerticalTextPosition(JLabel.TOP);
+
         this.textLabel.setOpaque(true);
 
         image = closeIcon.getImage();

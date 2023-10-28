@@ -55,12 +55,14 @@ public class Workshop extends JPanel implements ActionListener {
     // Graphics g2D;
     CombinationManager checkCombo = new CombinationManager(); // should i have it here or move it inside a method?
 
-    StartPage startPage = new StartPage();
+    StartPage startPage = new StartPage(this);
 
     public Fortune fortune = new Fortune();
     RecipeBook recipeBook = new RecipeBook();
 
     Message message;
+
+    Instructions instructions = new Instructions(this);
 
     Workshop() {
 
@@ -242,8 +244,15 @@ public class Workshop extends JPanel implements ActionListener {
 
     }
 
-    public void removeStartPage(JPanel startPage) {
+    public void removeStartPage() {
         layeredPane.remove(startPage);
+        layeredPane.add(instructions, Integer.valueOf(2));
+        layeredPane.revalidate();
+        layeredPane.repaint();
+    }
+
+    public void removeInstructions() {
+        layeredPane.remove(instructions);
         layeredPane.revalidate();
         layeredPane.repaint();
     }
@@ -395,7 +404,7 @@ public class Workshop extends JPanel implements ActionListener {
             child.setVisible(true);
 
             if (!child.isDicovered) {
-                message = new Message(child);
+                message = new Message(child, this);
                 layeredPane.add(message, Integer.valueOf(2));
                 RecipeBook.getRecipe(child.name).unlock();
             }

@@ -13,7 +13,7 @@ public class RecipePage extends JPanel implements ActionListener {
     // static final Point leftCorner = new Point(575, 100);
     // static final Point leftCorner = new Point(0, 0);
 
-    ImageIcon unlockIcon = new ImageIcon("unlock_button.png");
+    // ImageIcon unlockIcon = new ImageIcon("unlock_button.png");
     JButton unlockButton = new JButton();
 
     Recipe recipe;
@@ -21,6 +21,8 @@ public class RecipePage extends JPanel implements ActionListener {
     JLabel recipeLabel = new JLabel();
     JLabel recipeParentLabels[] = new JLabel[2];
     JPanel[] recipePanels = new JPanel[3];
+    ImageIcon coinsIcon = new ImageIcon("coins.png");
+    JLabel costLabel = new JLabel();
 
     JLayeredPane layeredPane = new JLayeredPane();
 
@@ -50,27 +52,34 @@ public class RecipePage extends JPanel implements ActionListener {
 
         recipePanels[1] = new JPanel();
         recipePanels[1].setBackground(new Color(0, 0, 0, 0));
-        recipePanels[1].setBounds((int) (width / 2) - 100, (int) (height / 2) + 40, 100, 100);
+        recipePanels[1].setBounds((int) (width / 2) - 125, (int) (height / 2) + 25, 125, 100);
         recipePanels[1].setOpaque(false);
         recipePanels[1].setLayout(null);
         recipePanels[1].setBorder(lightBorder);
 
         recipePanels[2] = new JPanel();
         recipePanels[2].setBackground(new Color(0, 0, 0, 0));
-        recipePanels[2].setBounds((int) (width / 2), (int) (height / 2) + 40, 100, 100);
+        recipePanels[2].setBounds((int) (width / 2), (int) (height / 2) + 25, 125, 100);
         recipePanels[2].setOpaque(false);
         recipePanels[2].setLayout(null);
         recipePanels[2].setBorder(lightBorder);
 
-        unlockButton.setBounds((int) (width / 2) - 100, (int) (height / 2) + 40, 200, 70);
+        unlockButton.setBounds((int) (width / 2) - 125, (int) (height / 2), 250, 100);
         unlockButton.setFocusable(false);
         unlockButton.setBackground(new Color(100, 100, 100, 0));
         unlockButton.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0, 0)));
-        Image image = unlockIcon.getImage();
-        Image newimg = image.getScaledInstance(200, 70, java.awt.Image.SCALE_SMOOTH);
-        unlockIcon = new ImageIcon(newimg);
-        unlockButton.setIcon(unlockIcon);
+        // Image image = unlockIcon.getImage();
+        // Image newimg = image.getScaledInstance(200, 70, java.awt.Image.SCALE_SMOOTH);
+        // unlockIcon = new ImageIcon(newimg);
+        // unlockButton.setIcon(unlockIcon);
+        unlockButton.setText("UNLOCK");
+        unlockButton.setForeground(new Color(0, 32, 96));
+        unlockButton.setFont(new Font("Blackadder ITC", Font.BOLD, 40));
+        unlockButton.setHorizontalTextPosition(JLabel.CENTER);
+        unlockButton.setVerticalTextPosition(JLabel.CENTER);
         unlockButton.addActionListener(this);
+
+        costLabel.setBounds((int) (width / 2) - 120, (int) (height / 2) + 100, 250, 50);
 
         message.setBounds((int) (width / 2) - 100, (int) (height / 2) - 25, 200, 200);
 
@@ -82,6 +91,7 @@ public class RecipePage extends JPanel implements ActionListener {
         layeredPane.add(recipePanels[2], Integer.valueOf(1));
 
         layeredPane.add(unlockButton, Integer.valueOf(3));
+        layeredPane.add(costLabel, Integer.valueOf(3));
 
         layeredPane.add(recipeLabel, Integer.valueOf(2));
         layeredPane.add(recipeParentLabels[0], Integer.valueOf(2));
@@ -117,8 +127,23 @@ public class RecipePage extends JPanel implements ActionListener {
         // this.recipePanels[0].add(recipe);
 
         if (recipe.locked) {
+
             this.unlockButton.setEnabled(true);
             this.unlockButton.setVisible(true);
+
+            costLabel.setVisible(true);
+            costLabel.setText("cost: " + recipe.getValue());
+            Image image = coinsIcon.getImage();
+            Image newImg = image.getScaledInstance(32, 34, java.awt.Image.SCALE_SMOOTH);
+            coinsIcon = new ImageIcon(newImg);
+            costLabel.setIcon(coinsIcon);
+            costLabel.setHorizontalAlignment(JLabel.CENTER);
+            costLabel.setVerticalAlignment(JLabel.CENTER);
+            costLabel.setHorizontalTextPosition(JLabel.LEFT);
+            costLabel.setVerticalTextPosition(JLabel.CENTER);
+            costLabel.setForeground(new Color(199, 163, 121));
+            costLabel.setFont(new Font("Blackadder ITC", Font.BOLD, 30));
+
             this.recipePanels[1].setVisible(false);
             this.recipePanels[2].setVisible(false);
             this.recipeParentLabels[0].setVisible(false);
@@ -129,12 +154,13 @@ public class RecipePage extends JPanel implements ActionListener {
 
             this.unlockButton.setEnabled(false);
             this.unlockButton.setVisible(false);
+            costLabel.setVisible(false);
 
             this.recipeParents[0] = (Recipe) RecipeBook.getRecipe(CombinationManager.getParent1(recip.name));
 
             System.out.println("name of parent 1: " + recipeParents[0].name);
 
-            img = recipeParents[0].changeSize(recipeParents[0].getImage(), 70);
+            img = recipeParents[0].changeSize(recipeParents[0].getImage(), 65);
             this.recipeParentLabels[0].setIcon(img);
             this.recipeParentLabels[0].setText(recipeParents[0].name);
 
@@ -145,7 +171,7 @@ public class RecipePage extends JPanel implements ActionListener {
             this.recipeParentLabels[0].setForeground(new Color(0, 32, 96));
             this.recipeParentLabels[0].setFont(new Font("Blackadder ITC", Font.BOLD, 22));
             this.recipeParentLabels[0].setVisible(true);
-            this.recipeParentLabels[0].setBounds((int) (width / 2) - 100, (int) (height / 2) + 40, 100, 100);
+            this.recipeParentLabels[0].setBounds((int) (width / 2) - 125, (int) (height / 2) + 25, 125, 100);
 
             this.recipePanels[1].setVisible(true);
 
@@ -153,7 +179,7 @@ public class RecipePage extends JPanel implements ActionListener {
 
             System.out.println("name of parent2: " + recipeParents[1].name);
 
-            img = recipeParents[1].changeSize(recipeParents[1].getImage(), 70);
+            img = recipeParents[1].changeSize(recipeParents[1].getImage(), 65);
             this.recipeParentLabels[1].setIcon(img);
             this.recipeParentLabels[1].setText(recipeParents[1].name);
 
@@ -164,8 +190,7 @@ public class RecipePage extends JPanel implements ActionListener {
             this.recipeParentLabels[1].setForeground(new Color(0, 32, 96));
             this.recipeParentLabels[1].setFont(new Font("Blackadder ITC", Font.BOLD, 22));
             this.recipeParentLabels[1].setVisible(true);
-            this.recipeParentLabels[1].setBounds((int) (width / 2), (int) (height / 2) + 40, 100, 100);
-
+            this.recipeParentLabels[1].setBounds((int) (width / 2), (int) (height / 2) + 25, 125, 100);
             this.recipePanels[2].setVisible(true);
         }
 
