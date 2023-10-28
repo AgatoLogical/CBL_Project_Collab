@@ -11,10 +11,12 @@ public class StartPage extends JPanel implements ActionListener{
     ImageIcon alchemistTitle;
     JLabel titleLabel;
     JPanel titlePanel;
+    Workshop mainPage;
 
 
+    StartPage(Workshop workshop){
+        mainPage = workshop;
 
-    StartPage(){
         this.setBounds(0, 0, WIDTH, HEIGHT);
         this.setBackground(new Color(150, 119, 89));
         this.setLayout(new BorderLayout(0,0));
@@ -74,10 +76,8 @@ public class StartPage extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == startButton){
-            Workshop mainPage = new Workshop();
-            mainPage.removeStartPage(this);
+            mainPage.removeStartPage();
             this.setVisible(false);
-            
         }
     }
 

@@ -56,11 +56,15 @@ public class Workshop extends JPanel implements ActionListener{
     //Graphics g2D;
     CombinationManager checkCombo = new CombinationManager(); //should i have it here or move it inside a method?
 
-    StartPage startPage = new StartPage();
+    StartPage startPage = new StartPage(this);
 
     public Fortune fortune = new Fortune();
 
     Message message;
+
+    int numberOfDiscoveredItems = 0;
+
+    Instructions instructions = new Instructions(this);
 
     Workshop(){
 
@@ -208,6 +212,9 @@ public class Workshop extends JPanel implements ActionListener{
         layeredPane.add(defaultItemsPanel, JLayeredPane.DEFAULT_LAYER);
         layeredPane.add(startPage, Integer.valueOf(2));
         layeredPane.add(fortune, JLayeredPane.DEFAULT_LAYER);
+        //layeredPane.add(instructions, Integer.valueOf(2));
+
+        
 
         int xIvy = 5;
         int yIvy = 115;
@@ -241,8 +248,22 @@ public class Workshop extends JPanel implements ActionListener{
 
     }
 
-    public void removeStartPage(JPanel startPage){
+    public void removeStartPage(/*JPanel startPage*/){ // I don't need to pass anything
         layeredPane.remove(startPage);
+        layeredPane.add(instructions, Integer.valueOf(2));
+        layeredPane.revalidate();
+        layeredPane.repaint();
+        //this.addInstructions();
+    }
+
+    /*public void addInstructions(){
+        layeredPane.add(instructions, Integer.valueOf(2));
+        layeredPane.revalidate();
+        layeredPane.repaint();
+    }*/
+
+    public void removeInstructions(){
+        layeredPane.remove(instructions);
         layeredPane.revalidate();
         layeredPane.repaint();
     }
@@ -393,7 +414,7 @@ public class Workshop extends JPanel implements ActionListener{
             child.setVisible(true);
 
             if (!child.isDicovered) {
-                message = new Message(child);
+                message = new Message(child, this);
                 layeredPane.add(message, Integer.valueOf(2));
             }
 
@@ -406,12 +427,17 @@ public class Workshop extends JPanel implements ActionListener{
             tableSlots[1].remove(Parent2);
 
             fortune.gainFortune(child);
+
+            numberOfDiscoveredItems++;
+
+            if(numberOfDiscoveredItems == 30){
+
+            }
         }
     }
 
     public void removeMessage(Message message){
         layeredPane.remove(message);
-
         layeredPane.revalidate();
         layeredPane.repaint();
     }

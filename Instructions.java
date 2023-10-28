@@ -3,16 +3,16 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Message extends JPanel implements ActionListener{
+public class Instructions extends JPanel implements ActionListener{
     Item item;
     JLabel textLabel;
     ImageIcon itemImage;
     JButton closeButton;
     JPanel buttonPanel;
-    Workshop mainPage;
+    private Workshop mainPage;
 
-    Message(Item item, Workshop workshop){
-        mainPage = workshop;
+    Instructions(Workshop mainPage){
+        this.mainPage = mainPage;
 
         this.setBounds(425, 185, 350, 255);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
@@ -20,13 +20,13 @@ public class Message extends JPanel implements ActionListener{
         this.setBackground(new Color(69, 37, 12));
 
         textLabel = new JLabel();
-        textLabel.setText("<html><br><center>New Item Discovered:<br>" + item.name + "</center></html>");
-        textLabel.setIcon(item.image);
+        textLabel.setText("<html><br><center>Welcome!<br>Mix Items together by dragging them onto the table and have fun discovering new combinations!</center></html>");
+        //textLabel.setIcon(item.image);
 		textLabel.setHorizontalTextPosition(JLabel.CENTER); //set text LEFT,CENTER, RIGHT of imageicon
 		textLabel.setVerticalTextPosition(JLabel.TOP); //set text TOP,CENTER, BOTTOM of imageicon
 		textLabel.setForeground(new Color(250, 219, 195)); //set font color of text
 		textLabel.setFont(new Font("Courier New", Font.PLAIN, 20)); //set font of text
-		textLabel.setIconTextGap(15); //set gap of text to image
+		//textLabel.setIconTextGap(15); //set gap of text to image
 		textLabel.setOpaque(false); //display background color
 		textLabel.setVerticalAlignment(JLabel.CENTER); //set vertical position of icon+text within label
 		textLabel.setHorizontalAlignment(JLabel.CENTER); //set horizontal position of icon+text within label
@@ -59,10 +59,9 @@ public class Message extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == closeButton){
-            Workshop mainPage = new Workshop();
-            mainPage.removeMessage(this);
+            //Workshop mainPage = new Workshop();
+            mainPage.removeInstructions();
             this.setVisible(false);
-            
         }
     }
 }
