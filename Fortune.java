@@ -1,7 +1,5 @@
 import java.awt.*;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class Fortune extends JPanel {
 
@@ -11,13 +9,12 @@ public class Fortune extends JPanel {
     private String fortuneText;
 
     public Fortune() {
-        //this.setBackground(new Color(112, 81, 52));
+        // this.setBackground(new Color(112, 81, 52));
         this.setOpaque(false);
         this.setBounds(975, 700, 250, 100);
 
-        //Border lightBorder = BorderFactory.createLineBorder(new Color(255, 215, 0));
-        //this.setBorder(lightBorder);
-
+        // Border lightBorder = BorderFactory.createLineBorder(new Color(255, 215, 0));
+        // this.setBorder(lightBorder);
 
         Image image = fortuneIcon.getImage();
         Image newImg = image.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
@@ -38,7 +35,7 @@ public class Fortune extends JPanel {
 
         this.add(label);
 
-        //spendFortune(new Item(fortuneIcon)); //what does it do?
+        // spendFortune(new Item(fortuneIcon)); //what does it do?
 
     }
 
@@ -46,7 +43,7 @@ public class Fortune extends JPanel {
     // bookButton.setBackground(new Color(112, 81, 52));
 
     public void gainFortune(Item item) {
-        fortune += item.getValue();
+        Fortune.fortune += item.getValue();
         this.fortuneText = "" + fortune;
         this.label.setText(fortuneText);
 
@@ -56,7 +53,7 @@ public class Fortune extends JPanel {
 
     public boolean spendFortune(Item item) {
         if (fortune - item.getValue() >= 0) {
-            fortune -= item.getValue();
+            Fortune.fortune -= item.getValue();
             this.fortuneText = "" + fortune;
             this.label.setText(fortuneText);
 
@@ -65,5 +62,17 @@ public class Fortune extends JPanel {
             return true;
         }
         return false;
+    }
+
+    public void paintFortune() {
+
+        if (!fortuneText.equals("" + fortune)) {
+
+            this.fortuneText = "" + fortune;
+            this.label.setText(fortuneText);
+
+            revalidate();
+            repaint();
+        }
     }
 }

@@ -11,14 +11,21 @@ public class RecipePage extends JPanel implements ActionListener {
     static final int width = 490;
     static final int height = 510;
     // static final Point leftCorner = new Point(575, 100);
-    static final Point leftCorner = new Point(0, 0);
+    // static final Point leftCorner = new Point(0, 0);
 
     ImageIcon unlockIcon = new ImageIcon("unlock_button.png");
     JButton unlockButton = new JButton();
+
     Recipe recipe;
     Recipe recipeParents[] = new Recipe[2];
+    JLabel recipeLabel = new JLabel();
+    JLabel recipeParentLabels[] = new JLabel[2];
     JPanel[] recipePanels = new JPanel[3];
+
     JLayeredPane layeredPane = new JLayeredPane();
+
+    Fortune fortune = new Fortune();
+    RecipeMessage message = new RecipeMessage();
 
     RecipePage() {
 
@@ -65,10 +72,22 @@ public class RecipePage extends JPanel implements ActionListener {
         unlockButton.setIcon(unlockIcon);
         unlockButton.addActionListener(this);
 
-        layeredPane.add(recipePanels[0], Integer.valueOf(3));
-        layeredPane.add(recipePanels[1], Integer.valueOf(3));
-        layeredPane.add(recipePanels[2], Integer.valueOf(3));
-        layeredPane.add(unlockButton, Integer.valueOf(4));
+        message.setBounds((int) (width / 2) - 100, (int) (height / 2) - 25, 200, 200);
+
+        recipeParentLabels[0] = new JLabel();
+        recipeParentLabels[1] = new JLabel();
+
+        layeredPane.add(recipePanels[0], Integer.valueOf(1));
+        layeredPane.add(recipePanels[1], Integer.valueOf(1));
+        layeredPane.add(recipePanels[2], Integer.valueOf(1));
+
+        layeredPane.add(unlockButton, Integer.valueOf(3));
+
+        layeredPane.add(recipeLabel, Integer.valueOf(2));
+        layeredPane.add(recipeParentLabels[0], Integer.valueOf(2));
+        layeredPane.add(recipeParentLabels[1], Integer.valueOf(2));
+
+        layeredPane.add(message, Integer.valueOf(4));
         this.add(layeredPane);
 
         // not complete
@@ -80,20 +99,18 @@ public class RecipePage extends JPanel implements ActionListener {
 
         this.recipe = recip;
 
-        // this.recipe.setBackground(new Color(0, 0, 0, 0));
-        // // this.recipe.setBounds((int) leftCorner.getX() + 250, (int)
-        // leftCorner.getY()
-        // // + 150, 150, 150);
+        ImageIcon img = recipe.changeSize(recipe.getImage(), 100);
+        this.recipeLabel.setIcon(img);
+        this.recipeLabel.setText(recipe.name);
 
-        // this.recipe.changeSize(recipe.image, 145);
-        // this.recipe.setIcon(recipe.image);
-        // this.recipe.setHorizontalAlignment(JLabel.CENTER);
-        // this.recipe.setVerticalAlignment(JLabel.CENTER);
-
-        // this.recipe.setText(recipe.name.toUpperCase());
-        // this.recipe.setHorizontalTextPosition(JLabel.CENTER);
-        // this.recipe.setVerticalTextPosition(JLabel.BOTTOM);
-        // this.recipe.setIconTextGap(+25);
+        this.recipeLabel.setHorizontalAlignment(JLabel.CENTER);
+        this.recipeLabel.setVerticalAlignment(JLabel.CENTER);
+        this.recipeLabel.setHorizontalTextPosition(JLabel.CENTER);
+        this.recipeLabel.setVerticalTextPosition(JLabel.BOTTOM);
+        this.recipeLabel.setForeground(new Color(0, 32, 96));
+        this.recipeLabel.setFont(new Font("Blackadder ITC", Font.BOLD, 28));
+        this.recipeLabel.setVisible(true);
+        this.recipeLabel.setBounds((int) (width / 2) - 75, 25, 150, 150);
 
         System.out.println("name of recip: " + recipe.name);
 
@@ -104,6 +121,8 @@ public class RecipePage extends JPanel implements ActionListener {
             this.unlockButton.setVisible(true);
             this.recipePanels[1].setVisible(false);
             this.recipePanels[2].setVisible(false);
+            this.recipeParentLabels[0].setVisible(false);
+            this.recipeParentLabels[1].setVisible(false);
         }
 
         if (!recipe.locked) {
@@ -115,39 +134,38 @@ public class RecipePage extends JPanel implements ActionListener {
 
             System.out.println("name of parent 1: " + recipeParents[0].name);
 
-            // this.recipeParents[0].setBackground(new Color(0, 0, 0, 0));
-            // this.recipeParents[0].setBounds((int) leftCorner.getX() + 175, (int)
-            // leftCorner.getY() + 450, 100, 150);
+            img = recipeParents[0].changeSize(recipeParents[0].getImage(), 70);
+            this.recipeParentLabels[0].setIcon(img);
+            this.recipeParentLabels[0].setText(recipeParents[0].name);
 
-            // this.recipeParents[0].changeSize(recipeParents[0].image, 75);
-            // this.recipeParents[0].setIcon(recipeParents[0].image);
-            // this.recipeParents[0].setHorizontalAlignment(JLabel.CENTER);
-            // this.recipeParents[0].setVerticalAlignment(JLabel.CENTER);
+            this.recipeParentLabels[0].setHorizontalAlignment(JLabel.CENTER);
+            this.recipeParentLabels[0].setVerticalAlignment(JLabel.CENTER);
+            this.recipeParentLabels[0].setHorizontalTextPosition(JLabel.CENTER);
+            this.recipeParentLabels[0].setVerticalTextPosition(JLabel.BOTTOM);
+            this.recipeParentLabels[0].setForeground(new Color(0, 32, 96));
+            this.recipeParentLabels[0].setFont(new Font("Blackadder ITC", Font.BOLD, 22));
+            this.recipeParentLabels[0].setVisible(true);
+            this.recipeParentLabels[0].setBounds((int) (width / 2) - 100, (int) (height / 2) + 40, 100, 100);
 
-            // this.recipeParents[0].setText(recipe.name.toUpperCase());
-            // this.recipeParents[0].setHorizontalTextPosition(JLabel.CENTER);
-            // this.recipeParents[0].setVerticalTextPosition(JLabel.BOTTOM);
-            // this.recipeParents[0].setIconTextGap(+10);
-
-            // this.recipePanels[1].add(recipeParents[0]);
             this.recipePanels[1].setVisible(true);
 
             this.recipeParents[1] = RecipeBook.getRecipe(CombinationManager.getParent2(recip.name));
 
             System.out.println("name of parent2: " + recipeParents[1].name);
 
-            // this.recipeParents[1].setBackground(new Color(0, 0, 0, 0));
-            // this.recipeParents[1].changeSize(recipeParents[1].image, 75);
-            // this.recipeParents[1].setIcon(recipeParents[1].image);
-            // this.recipeParents[1].setHorizontalAlignment(JLabel.CENTER);
-            // this.recipeParents[1].setVerticalAlignment(JLabel.CENTER);
+            img = recipeParents[1].changeSize(recipeParents[1].getImage(), 70);
+            this.recipeParentLabels[1].setIcon(img);
+            this.recipeParentLabels[1].setText(recipeParents[1].name);
 
-            // this.recipeParents[1].setText(recipe.name.toUpperCase());
-            // this.recipeParents[1].setHorizontalTextPosition(JLabel.CENTER);
-            // this.recipeParents[1].setVerticalTextPosition(JLabel.BOTTOM);
-            // this.recipeParents[1].setIconTextGap(+10);
+            this.recipeParentLabels[1].setHorizontalAlignment(JLabel.CENTER);
+            this.recipeParentLabels[1].setVerticalAlignment(JLabel.CENTER);
+            this.recipeParentLabels[1].setHorizontalTextPosition(JLabel.CENTER);
+            this.recipeParentLabels[1].setVerticalTextPosition(JLabel.BOTTOM);
+            this.recipeParentLabels[1].setForeground(new Color(0, 32, 96));
+            this.recipeParentLabels[1].setFont(new Font("Blackadder ITC", Font.BOLD, 22));
+            this.recipeParentLabels[1].setVisible(true);
+            this.recipeParentLabels[1].setBounds((int) (width / 2), (int) (height / 2) + 40, 100, 100);
 
-            // this.recipePanels[2].add(recipeParents[1]);
             this.recipePanels[2].setVisible(true);
         }
 
@@ -157,10 +175,15 @@ public class RecipePage extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == unlockButton) {
-            recipe.unlock();
-            this.init(recipe);
-            revalidate();
-            repaint();
+            if (fortune.spendFortune(recipe)) {
+                recipe.unlock();
+                this.init(recipe);
+                revalidate();
+                repaint();
+            } else {
+                openMessage();
+            }
+
         }
     }
 
@@ -176,5 +199,9 @@ public class RecipePage extends JPanel implements ActionListener {
         super.paint(g);
         revalidate();
         repaint();
+    }
+
+    private void openMessage() {
+        message.setVisible(true);
     }
 }

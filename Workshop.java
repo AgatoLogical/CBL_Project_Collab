@@ -397,6 +397,7 @@ public class Workshop extends JPanel implements ActionListener {
             if (!child.isDicovered) {
                 message = new Message(child);
                 layeredPane.add(message, Integer.valueOf(2));
+                RecipeBook.getRecipe(child.name).unlock();
             }
 
             child.isDicovered = true;
@@ -679,6 +680,13 @@ public class Workshop extends JPanel implements ActionListener {
         if (e.getSource() == bookButton) {
             recipeBook.openBook();
         }
+    }
+
+    public void paint(Graphics g) {
+        super.paint(g);
+        fortune.paintFortune();
+        revalidate();
+        repaint();
     }
 
     // goToShop

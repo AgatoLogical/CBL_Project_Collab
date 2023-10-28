@@ -30,6 +30,10 @@ public class Recipe extends Item {
         return imageIcon;
     }
 
+    public ImageIcon getImage() {
+        return super.image;
+    }
+
     // public ImageIcon getIconOfItem() {
     // return super.image;
     // }

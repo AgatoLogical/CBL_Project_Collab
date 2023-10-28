@@ -13,6 +13,8 @@ public class RecipeBook extends JFrame implements ActionListener {
     MyJButton[][] recipeButtons = new MyJButton[6][5];
     private static List<Recipe> recipes = new ArrayList<>();
     RecipePage recipePage = new RecipePage();
+
+    Fortune fortune = new Fortune();
     // ----------------------------------------------------------//
 
     // ------------------code that worked------------------//
@@ -55,7 +57,10 @@ public class RecipeBook extends JFrame implements ActionListener {
         // ---------------------------------------------------//
 
         // ------------------code that doesn't work------------------//
+        fortune.setBounds(720, 600, 250, 100);
+
         layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(fortune, Integer.valueOf(1));
 
         int i;
         int j;
@@ -83,7 +88,7 @@ public class RecipeBook extends JFrame implements ActionListener {
         }
 
         recipePage.setBounds(600, 150, 485, 510);
-        recipePage.setBorder(lightBorder);
+        // recipePage.setBorder(lightBorder);
         layeredPane.add(recipePage, Integer.valueOf(2));
         this.add(layeredPane);
 
@@ -103,6 +108,7 @@ public class RecipeBook extends JFrame implements ActionListener {
                 x++;
             }
         }
+        fortune.paintFortune();
     }
 
     @Override
@@ -111,7 +117,6 @@ public class RecipeBook extends JFrame implements ActionListener {
             for (int j = 0; j <= 4; j++) {
                 if (e.getSource() == recipeButtons[i][j]) {
                     this.openPage(recipeButtons[i][j]);
-                    this.init();
                 }
             }
         }
@@ -119,6 +124,7 @@ public class RecipeBook extends JFrame implements ActionListener {
 
     public void paint(Graphics g) {
         super.paint(g);
+        this.init();
         revalidate();
         repaint();
     }
