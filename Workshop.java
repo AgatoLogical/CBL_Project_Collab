@@ -277,7 +277,7 @@ public class Workshop extends JPanel implements ActionListener {
                 return;
             }
 
-            Component[] components = clickedPanel.getComponents();
+            java.awt.Component[] components = clickedPanel.getComponents();
             if (components.length == 0) {
                 return;
             }
@@ -341,7 +341,7 @@ public class Workshop extends JPanel implements ActionListener {
             } else {
 
                 // checks if slot already full
-                Component[] components = droppedPanel.getComponents();
+                java.awt.Component[] components = droppedPanel.getComponents();
                 if (components.length != 0 && components[0] instanceof JLabel) {
                     clickedPanel.add(dragLabel);
                     clickedPanel.revalidate();
@@ -362,8 +362,8 @@ public class Workshop extends JPanel implements ActionListener {
                 }
             }
 
-            Component[] content1 = tableSlots[0].getComponents();
-            Component[] content2 = tableSlots[1].getComponents();
+            java.awt.Component[] content1 = tableSlots[0].getComponents();
+            java.awt.Component[] content2 = tableSlots[1].getComponents();
             if (content1.length != 0 && content1[0] instanceof JLabel && content2.length != 0
                     && content2[0] instanceof JLabel) {
                 // checkCombo.newDiscovery(g2D);
