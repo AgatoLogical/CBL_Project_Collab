@@ -107,6 +107,8 @@ public class RecipePage extends JPanel implements ActionListener {
 
         // System.out.println("got to page init");
 
+        message.setVisible(false);
+
         this.recipe = recip;
 
         ImageIcon img = recipe.changeSize(recipe.getImage(), 100);

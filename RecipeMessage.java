@@ -1,5 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -15,7 +17,7 @@ public class RecipeMessage extends JPanel implements ActionListener {
     JLabel textLabel = new JLabel();
 
     ImageIcon closeIcon = new ImageIcon("close_button_book.png");
-    JButton closeButton = new JButton();
+    CircleButton closeButton;
 
     JLayeredPane layeredPane = new JLayeredPane();
 
@@ -54,15 +56,15 @@ public class RecipeMessage extends JPanel implements ActionListener {
 
         this.textLabel.setOpaque(true);
 
-        image = closeIcon.getImage();
-        newImg = image.getScaledInstance(25, 25, java.awt.Image.SCALE_SMOOTH);
-        closeIcon = new ImageIcon(newImg);
-        this.closeButton.setIcon(closeIcon);
+        // image = closeIcon.getImage();
+        // newImg = image.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
+        // closeIcon = new ImageIcon(newImg);
+        this.closeButton = new CircleButton("X");
+        this.closeButton.setFont(new Font("Bougher", Font.BOLD, 32));
 
-        this.closeButton.setBackground(new Color(0, 0, 0, 0));
-        this.closeButton.setBounds(10, 10, 25, 25);
-        this.closeButton.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0, 0)));
-        this.closeButton.setVisible(true);
+        // this.closeButton.setBackground(new Color(0, 0, 0, 0));
+        this.closeButton.setBounds(20, 15, 40, 40);
+        this.closeButton.setOpaque(true);
         this.closeButton.addActionListener(this);
 
         layeredPane.add(backgroundLabel, Integer.valueOf(1));
@@ -77,6 +79,101 @@ public class RecipeMessage extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == closeButton) {
             this.setVisible(false);
+        }
+    }
+
+    public class CircleButton extends JButton {
+
+        private boolean mouseOver = false;
+        private boolean mousePressed = false;
+
+        public CircleButton(String text) {
+
+            super(text);
+            setOpaque(false);
+            setFocusPainted(false);
+            setBorderPainted(false);
+
+            MouseAdapter mouseListener = new MouseAdapter() {
+
+                @Override
+                public void mousePressed(MouseEvent me) {
+                    if (contains(me.getX(), me.getY())) {
+                        mousePressed = true;
+                        repaint();
+                    }
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent me) {
+                    mousePressed = false;
+                    repaint();
+                }
+
+                @Override
+                public void mouseExited(MouseEvent me) {
+                    mouseOver = false;
+                    mousePressed = false;
+                    repaint();
+                }
+
+                @Override
+                public void mouseMoved(MouseEvent me) {
+                    mouseOver = contains(me.getX(), me.getY());
+                    repaint();
+                }
+            };
+
+            addMouseListener(mouseListener);
+            addMouseMotionListener(mouseListener);
+        }
+
+        private int getDiameter() {
+            int diameter = Math.min(getWidth(), getHeight());
+            return diameter;
+        }
+
+        @Override
+        public Dimension getPreferredSize() {
+            FontMetrics metrics = getGraphics().getFontMetrics(getFont());
+            int minDiameter = 10 + Math.max(metrics.stringWidth(getText()), metrics.getHeight());
+            return new Dimension(minDiameter, minDiameter);
+        }
+
+        @Override
+        public boolean contains(int x, int y) {
+            int radius = getDiameter() / 2;
+            return Point2D.distance(x, y, getWidth() / 2, getHeight() / 2) < radius;
+        }
+
+        @Override
+        public void paintComponent(Graphics g) {
+
+            int diameter = getDiameter();
+            int radius = diameter / 2;
+
+            if (mousePressed) {
+                g.setColor(new Color(0, 0, 0, 20));
+            } else {
+                g.setColor(new Color(0, 0, 0, 0));
+            }
+
+            g.fillOval(getWidth() / 2 - radius, getHeight() / 2 - radius, diameter, diameter);
+
+            if (mouseOver) {
+                g.setColor(new Color(160, 50, 50, 75));
+            } else {
+                g.setColor(new Color(0, 0, 0, 0));
+            }
+
+            g.drawOval(getWidth() / 2 - radius, getHeight() / 2 - radius, diameter, diameter);
+
+            g.setColor(new Color(160, 50, 50));
+            g.setFont(getFont());
+            FontMetrics metrics = g.getFontMetrics(getFont());
+            int stringWidth = metrics.stringWidth(getText());
+            int stringHeight = metrics.getHeight();
+            g.drawString(getText(), getWidth() / 2 - stringWidth / 2, getHeight() / 2 + stringHeight / 4);
         }
     }
 
