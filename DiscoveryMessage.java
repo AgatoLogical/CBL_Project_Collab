@@ -3,20 +3,24 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Instructions extends Message{
+public class DiscoveryMessage extends Message{
+    Item item;
     String text;
 
-    Instructions(Workshop mainPage){
+    DiscoveryMessage(Item item, Workshop mainPage){
         super(mainPage);
-        text = "<html><br><center>Welcome!<br>Mix Items together by dragging them onto the table and have fun discovering new combinations! For any tips checkout the recipe book!</center></html>";
+        text = "<html><br><center>New Item Discovered:<br>" + item.name + "</center></html>";
         adjustText(text);
+        setGap(15);
+        adjustIcon(item.image);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == closeButton){
-            mainPage.removeInstructions();
+            mainPage.removeMessage();
             this.setVisible(false);
+            
         }
     }
 }

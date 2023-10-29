@@ -60,7 +60,7 @@ public class Workshop extends JPanel implements ActionListener{
 
     public Fortune fortune = new Fortune();
 
-    Message message;
+    DiscoveryMessage message;
 
     EndPage finalMessage = new EndPage(this);
 
@@ -429,7 +429,7 @@ public class Workshop extends JPanel implements ActionListener{
             child.setVisible(true);
 
             if (!child.isDicovered) {
-                message = new Message(child, this);
+                message = new DiscoveryMessage(child, this);
                 layeredPane.add(message, Integer.valueOf(2));
             }
 

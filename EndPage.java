@@ -3,15 +3,19 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class EndPage extends JPanel implements ActionListener{
-    JLabel textLabel;
+public class EndPage extends Message{
     ImageIcon confetti;
-    JButton closeButton;
-    JPanel buttonPanel;
-    Workshop mainPage;
+    String text;
 
     EndPage(Workshop mainPage){
-        this.mainPage = mainPage;
+        super(mainPage);
+        text = "<html><br><center>Congratulations!<br>You have discovered all 30 items!</center></html>";
+        confetti = new ImageIcon("confetti.png");
+        
+        adjustText(text);
+        setGap(10);
+        adjustIcon(confetti);
+        /*this.mainPage = mainPage;
 
         this.setBounds(425, 185, 350, 255);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
@@ -53,7 +57,7 @@ public class EndPage extends JPanel implements ActionListener{
         buttonPanel.add(closeButton);
 
         this.add(textLabel, BorderLayout.NORTH);
-        this.add(buttonPanel, BorderLayout.SOUTH);
+        this.add(buttonPanel, BorderLayout.SOUTH);*/
 
     }
 
