@@ -1,17 +1,14 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.Border;
-
 
 public class Workshop extends JPanel implements ActionListener{
 
     static final int SCREEN_WIDTH = 1200;
     static final int SCREEN_HEIGHT = 800;
-    static final int SLOTS_ON_PAGE = 30; 
-    static final int PAGES_NUMBER = 1;
+    static final int SLOTS_ON_PAGE = 30;
 
-    public JLayeredPane layeredPane = new JLayeredPane();
+    JLayeredPane layeredPane = new JLayeredPane();
 
     JPanel firstShelf = new JPanel();
     JPanel secondShelf = new JPanel();
@@ -23,48 +20,43 @@ public class Workshop extends JPanel implements ActionListener{
 
     JPanel tablePanel = new JPanel();
 
-    ImageIcon table = new ImageIcon("table.png");
+    ImageIcon table = new ImageIcon("images/table.png");
 
     JLabel tableLabel = new JLabel();
 
-    //JPanel ivyPanel = new JPanel();
     JPanel[] ivyPanel = new JPanel[25];
-    ImageIcon ivy = new ImageIcon("ivy_horizontal.png");
+    ImageIcon ivy = new ImageIcon("images/ivy_horizontal.png");
     JLabel[] ivyLabel = new JLabel[25];
 
     JPanel ivyTablePanel = new JPanel();
-    ImageIcon ivyTable = new ImageIcon("ivy_vertical.png");
+    ImageIcon ivyTable = new ImageIcon("images/ivy_vertical.png");
     JLabel ivyTableLabel = new JLabel();
 
     JPanel ivyTablePanel2 = new JPanel();
-    ImageIcon ivyTable2 = new ImageIcon("ivy_vertical2.png");
+    ImageIcon ivyTable2 = new ImageIcon("images/ivy_vertical2.png");
     JLabel ivyTableLabel2 = new JLabel();
 
-    Slot[][] slots = new Slot[SLOTS_ON_PAGE + 4][PAGES_NUMBER];
+    JPanel[] slots = new JPanel[SLOTS_ON_PAGE + 4];
 
-    Slot[] tableSlots = new Slot[2];
+    JPanel[] tableSlots = new JPanel[2];
 
     JButton bookButton = new JButton();
-    JButton shopButton = new JButton();
 
-    ImageIcon bookIcon = new ImageIcon("recipe_book.png");
-    ImageIcon shopIcon = new ImageIcon("shop.png");
+    ImageIcon bookIcon = new ImageIcon("images/recipe_book.png");
 
     JPanel tableSlotsPanel = new JPanel(new GridLayout(1, 2, 50, 0));
 
     JPanel defaultItemsPanel = new JPanel(new GridLayout(1, 4,16, 0));
-    //Graphics g2D;
-    CombinationManager checkCombo = new CombinationManager(); //should i have it here or move it inside a method?
 
     StartPage startPage = new StartPage(this);
 
-    public Fortune fortune = new Fortune();
+    Fortune fortune = new Fortune();
 
     DiscoveryMessage message;
 
     EndPage finalMessage = new EndPage(this);
 
-    int numberOfDiscoveredItems = 29;
+    int numberOfDiscoveredItems = 0;
 
     Instructions instructions = new Instructions(this);
 
@@ -107,45 +99,39 @@ public class Workshop extends JPanel implements ActionListener{
         thirdShelf.add(brownShelf3); 
 
         for(int i = 0; i < SLOTS_ON_PAGE; ++i) {
-            for(int j = 0; j < PAGES_NUMBER; ++j) {
                 counterForShelf++;
                 if(counterForCoord % 10 == 0 && counterForCoord != 0) {
                     x = 17;
                     counterForCoord = 0;
                 }
-                slots[i][j] = new Slot(new Point(x, y), j);
-                slots[i][j].setBackground(new Color(0,0,0,30));
-                slots[i][j].setBounds((int) slots[i][j].leftCorner.getX(), (int) slots[i][j].leftCorner.getY(), 100, 100);
+                slots[i] = new JPanel();
+                slots[i].setBackground(new Color(0,0,0,30));
+                slots[i].setBounds(x, y, 100, 100);
                 x += 113;
 
                 if(counterForShelf <= 10){
-                    firstShelf.add(slots[i][j]);
+                    firstShelf.add(slots[i]);
                 } else if (counterForShelf <= 20){
-                    secondShelf.add(slots[i][j]);
+                    secondShelf.add(slots[i]);
                 } else if (counterForShelf <= 30){
-                    thirdShelf.add(slots[i][j]);
+                    thirdShelf.add(slots[i]);
                 }
 
                 counterForCoord++;
-            }
         }
 
-        defaultItemsPanel.setOpaque(true);
         defaultItemsPanel.setBackground(new Color(0, 0, 0, 0));
         defaultItemsPanel.setBounds(795,445, 380, 80);
 
         x = 795;
         y = 445;
         for (int i = 30; i < 34; ++i){
-            slots[i][0] = new Slot(new Point(x, y), 0);                
-            slots[i][0].setBackground(new Color(0,0,0,30));
-            //slots[i][0].setBounds((int) slots[i][0].leftCorner.getX(), (int) slots[i][0].leftCorner.getY(), 80, 80);
-            //layeredPane.add(slots[i][0], Integer.valueOf(0));
-            defaultItemsPanel.add(slots[i][0]);
+            slots[i] = new JPanel();              
+            slots[i].setBackground(new Color(0,0,0,30));
+            defaultItemsPanel.add(slots[i]);
             x += 100;
         }
 
-        //startGame();
         itemsInit();
 
         tableLabel.setIcon(table);
@@ -160,12 +146,12 @@ public class Workshop extends JPanel implements ActionListener{
         tableSlotsPanel.setBackground(new Color(0,0,0,0));
         tableSlotsPanel.setBounds(470, 539, 260, 100);
 
-        tableSlots[0] = new Slot(new Point(0, 0), -1);
+        tableSlots[0] = new JPanel();
         tableSlots[0].setOpaque(true);
         tableSlots[0].setBackground(new Color(0,0,0,30));
         tableSlotsPanel.add(tableSlots[0]);
 
-        tableSlots[1] = new Slot(new Point(159, 0), -1);
+        tableSlots[1] = new JPanel();
         tableSlots[1].setOpaque(true);
         tableSlots[1].setBackground(new Color(0,0,0,30));
         tableSlotsPanel.add(tableSlots[1]);
@@ -192,32 +178,9 @@ public class Workshop extends JPanel implements ActionListener{
         bookButton.setBounds(25, 680, 100, 100);
         bookButton.setFocusable(false);
         bookButton.setIcon(bookIcon);
-        Border darkBorder = BorderFactory.createLineBorder(new Color(54, 31, 10));
         bookButton.setBackground(new Color(112, 81, 52));
         bookButton.addActionListener(this);
-        //bookButton.setBorder(darkBorder);
-        shopButton.setBounds(150, 680, 100, 100);
-        shopButton.setFocusable(false);
-        shopButton.setIcon(shopIcon);
-        shopButton.setBackground(new Color(112, 81, 52));
-        shopButton.setBorder(darkBorder);
-
-        layeredPane.add(firstShelf, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(secondShelf, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(thirdShelf, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(tablePanel, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(tableSlotsPanel, Integer.valueOf(1));
-        layeredPane.add(ivyTablePanel, Integer.valueOf(1));
-        layeredPane.add(ivyTablePanel2, Integer.valueOf(1));
-        layeredPane.add(bookButton, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(shopButton, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(defaultItemsPanel, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(startPage, Integer.valueOf(2));
-        layeredPane.add(fortune, JLayeredPane.DEFAULT_LAYER);
-        //layeredPane.add(instructions, Integer.valueOf(2));
-
         
-
         int xIvy = 5;
         int yIvy = 115;
         for (int i = 0; i < 25; ++i){
@@ -246,23 +209,28 @@ public class Workshop extends JPanel implements ActionListener{
         layeredPane.addMouseListener(myMouseAdapter);
         layeredPane.addMouseMotionListener(myMouseAdapter);
 
+        layeredPane.add(firstShelf, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(secondShelf, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(thirdShelf, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(tablePanel, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(tableSlotsPanel, Integer.valueOf(1));
+        layeredPane.add(ivyTablePanel, Integer.valueOf(1));
+        layeredPane.add(ivyTablePanel2, Integer.valueOf(1));
+        layeredPane.add(bookButton, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(defaultItemsPanel, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(startPage, Integer.valueOf(2));
+        layeredPane.add(fortune, JLayeredPane.DEFAULT_LAYER);
+
         this.add(layeredPane);
 
     }
 
-    public void removeStartPage(/*JPanel startPage*/){ // I don't need to pass anything
+    public void removeStartPage(){
         layeredPane.remove(startPage);
         layeredPane.add(instructions, Integer.valueOf(2));
         layeredPane.revalidate();
         layeredPane.repaint();
-        //this.addInstructions();
     }
-
-    /*public void addInstructions(){
-        layeredPane.add(instructions, Integer.valueOf(2));
-        layeredPane.revalidate();
-        layeredPane.repaint();
-    }*/
 
     public void removeInstructions(){
         layeredPane.remove(instructions);
@@ -341,7 +309,7 @@ public class Workshop extends JPanel implements ActionListener{
                 int x = me.getPoint().x - dragLabelWidthDiv2;
                 int y = me.getPoint().y - dragLabelHeightDiv2;
                 dragLabel.setLocation(x, y);
-                layeredPane.add(dragLabel, JLayeredPane.DRAG_LAYER); //???????????
+                layeredPane.add(dragLabel, JLayeredPane.DRAG_LAYER);
                 layeredPane.repaint();
             }
 
@@ -400,7 +368,6 @@ public class Workshop extends JPanel implements ActionListener{
             Component[] content1 = tableSlots[0].getComponents();
             Component[] content2 = tableSlots[1].getComponents();
             if(content1.length != 0 && content1[0] instanceof JLabel && content2.length != 0 && content2[0] instanceof JLabel) {
-                //checkCombo.newDiscovery(g2D);
                 mixing((Item)content1[0], (Item)content2[0]);
             }
 
@@ -415,17 +382,14 @@ public class Workshop extends JPanel implements ActionListener{
     public void mixing(Item Parent1, Item Parent2){
         CombinationManager combination = new CombinationManager();
         Item child = combination.combineItems(Parent1, Parent2);
-    
-        //child = combination.combineItems(Parent1, Parent2);
 
         if (child == null) {
-            slots[Parent1.slotNumber][0].add(Parent1);
-            slots[Parent2.slotNumber][0].add(Parent2);
+            slots[Parent1.slotNumber].add(Parent1);
+            slots[Parent2.slotNumber].add(Parent2);
 
             tableSlots[0].remove(Parent1);
             tableSlots[1].remove(Parent2);
         } else {
-            //consider multithreading so child and items can be added to shelves and removed from the table simultaneously
             child.setVisible(true);
 
             if (!child.isDicovered) {
@@ -435,8 +399,8 @@ public class Workshop extends JPanel implements ActionListener{
 
             child.isDicovered = true;
 
-            slots[Parent1.slotNumber][0].add(Parent1);
-            slots[Parent2.slotNumber][0].add(Parent2);
+            slots[Parent1.slotNumber].add(Parent1);
+            slots[Parent2.slotNumber].add(Parent2);
 
             tableSlots[0].remove(Parent1);
             tableSlots[1].remove(Parent2);
@@ -457,10 +421,6 @@ public class Workshop extends JPanel implements ActionListener{
         layeredPane.repaint();
     }
 
-    /*public void startGame(){
-        init();
-    }*/
-
     // other variables for rendering
     public void itemsInit() {
 
@@ -468,19 +428,19 @@ public class Workshop extends JPanel implements ActionListener{
         Item air = new Item(new ImageIcon("icons/air.png"), 0, "Air");
         air.setVisible(true);
         air.slotNumber = 30;
-        slots[30][0].add(air);
+        slots[30].add(air);
         Item earth = new Item(new ImageIcon("icons/earth.png"), 0, "Earth");
         earth.setVisible(true);
         earth.slotNumber = 31;
-        slots[31][0].add(earth);
+        slots[31].add(earth);
         Item fire = new Item(new ImageIcon("icons/fire.png"), 0, "Fire");
         fire.setVisible(true);
         fire.slotNumber = 32;
-        slots[32][0].add(fire);
+        slots[32].add(fire);
         Item water = new Item(new ImageIcon("icons/water.png"), 0, "Water");
         water.setVisible(true);
         water.slotNumber = 33;
-        slots[33][0].add(water);
+        slots[33].add(water);
 
         Item lava = new Item(new ImageIcon("icons/lava.png"), 1, "Lava");
         Combination lavaCombination = new Combination(earth, fire, lava);
@@ -605,36 +565,15 @@ public class Workshop extends JPanel implements ActionListener{
 
         Item paper = new Item(new ImageIcon("icons/paper.png"), 4, "Paper");
         Combination paperCombination = new Combination(pressure, wood, paper);
-        propertiesInit(paperCombination, 29); 
-        paper.setVisible(false); 
+        propertiesInit(paperCombination, 29);
 
     }
 
     public void propertiesInit(Combination combination, int slotNr){
         CombinationManager.addCombination(combination);
-        //combination.getChild().setVisible(true);
-        slots[slotNr][0].add(combination.getChild());
-        slots[slotNr][0].item = combination.getChild();
-        combination.getChild().slotNumber = slotNr;
+        slots[slotNr].add(combination.getChild());
+        combination.getChild().slotNumber = slotNr; 
     }
-
-    public void showItems() {
-        //new GameFrame();
-
-        // uses moveItem
-        // uses goToRecipeBook?
-        // uses scroll
-    }
-
-    private Point moveItem() {
-        // to know the coord. of the place it is dropped?
-        return null;
-    }
-
-    private void goToRecipeBook() {
-        // when the button is clicked...
-    }
-
 
     //go to recipe book
     @Override
@@ -644,6 +583,4 @@ public class Workshop extends JPanel implements ActionListener{
             RecipeBook recipeBook = new RecipeBook();
         }
     }
-
-    // goToShop
 }

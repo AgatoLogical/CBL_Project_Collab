@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Combination {
     private Item parent1;
     private Item parent2;

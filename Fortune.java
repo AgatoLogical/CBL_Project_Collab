@@ -1,23 +1,16 @@
 import java.awt.*;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class Fortune extends JPanel {
 
     public static int fortune = 0;
     private JLabel label = new JLabel();
-    private ImageIcon fortuneIcon = new ImageIcon("fortune.png");
+    private ImageIcon fortuneIcon = new ImageIcon("images/fortune.png");
     private String fortuneText;
 
     public Fortune() {
-        //this.setBackground(new Color(112, 81, 52));
         this.setOpaque(false);
         this.setBounds(975, 700, 250, 100);
-
-        //Border lightBorder = BorderFactory.createLineBorder(new Color(255, 215, 0));
-        //this.setBorder(lightBorder);
-
 
         Image image = fortuneIcon.getImage();
         Image newImg = image.getScaledInstance(75, 75, java.awt.Image.SCALE_SMOOTH);
@@ -38,12 +31,7 @@ public class Fortune extends JPanel {
 
         this.add(label);
 
-        //spendFortune(new Item(fortuneIcon)); //what does it do?
-
     }
-
-    // bookButton.setBounds(25, 680, 100, 100);
-    // bookButton.setBackground(new Color(112, 81, 52));
 
     public void gainFortune(Item item) {
         fortune += item.getValue();

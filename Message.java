@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
 
 public class Message extends JPanel implements ActionListener{
     JLabel textLabel;
@@ -18,13 +17,13 @@ public class Message extends JPanel implements ActionListener{
         this.setBackground(new Color(69, 37, 12));
 
         textLabel = new JLabel();
-		textLabel.setHorizontalTextPosition(JLabel.CENTER); //set text LEFT,CENTER, RIGHT of imageicon
-		textLabel.setVerticalTextPosition(JLabel.TOP); //set text TOP,CENTER, BOTTOM of imageicon
-		textLabel.setForeground(new Color(250, 219, 195)); //set font color of text
-		textLabel.setFont(new Font("Courier New", Font.PLAIN, 19)); //set font of text
-		textLabel.setOpaque(false); //display background color
-		textLabel.setVerticalAlignment(JLabel.CENTER); //set vertical position of icon+text within label
-		textLabel.setHorizontalAlignment(JLabel.CENTER); //set horizontal position of icon+text within label
+		textLabel.setHorizontalTextPosition(JLabel.CENTER);
+		textLabel.setVerticalTextPosition(JLabel.TOP);
+		textLabel.setForeground(new Color(250, 219, 195));
+		textLabel.setFont(new Font("Courier New", Font.PLAIN, 19));
+		textLabel.setOpaque(false);
+		textLabel.setVerticalAlignment(JLabel.CENTER);
+		textLabel.setHorizontalAlignment(JLabel.CENTER);
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
@@ -38,7 +37,7 @@ public class Message extends JPanel implements ActionListener{
 		closeButton.setFocusable(false);
         closeButton.setBackground(new Color(150, 119, 89));
         closeButton.setBorder(BorderFactory.createEtchedBorder());
-        closeButton.setIcon(new ImageIcon("close.png"));
+        closeButton.setIcon(new ImageIcon("images/close.png"));
         buttonPanel.add(closeButton);
 
         this.add(textLabel, BorderLayout.NORTH);
@@ -61,7 +60,6 @@ public class Message extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == closeButton){
-            //Workshop mainPage = new Workshop();
             mainPage.removeInstructions();
             this.setVisible(false);
         }

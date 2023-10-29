@@ -13,7 +13,6 @@ public class StartPage extends JPanel implements ActionListener{
     JPanel titlePanel;
     Workshop mainPage;
 
-
     StartPage(Workshop workshop){
         mainPage = workshop;
 
@@ -22,8 +21,8 @@ public class StartPage extends JPanel implements ActionListener{
         this.setLayout(new BorderLayout(0,0));
 
         titlePanel = new JPanel(new BorderLayout());
-        alchemistImage = new ImageIcon("alchemist.png").getImage();
-        alchemistTitle = new ImageIcon("AlchemistTitle.png");
+        alchemistImage = new ImageIcon("images/alchemist.png").getImage();
+        alchemistTitle = new ImageIcon("images/AlchemistTitle.png");
         titleLabel = new JLabel();
         startPanel = new JPanel(new GridBagLayout());
         
@@ -37,21 +36,19 @@ public class StartPage extends JPanel implements ActionListener{
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 0; // Center horizontally
-        constraints.gridy = 0; // Center vertically
-        constraints.anchor = GridBagConstraints.CENTER; // Center alignment
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.anchor = GridBagConstraints.CENTER;
 
-        //backgroundImage = new ImageIcon("").getImage();
         startButton = new JButton();
         startButton.setPreferredSize(new Dimension(300, 50));
         startButton.setVisible(true);
 		startButton.addActionListener(this);
-		//startButton.setText("NEW GAME");
 		startButton.setFocusable(false);
 		startButton.setForeground(new Color(69, 37, 12));
 		startButton.setBackground(new Color(150, 119, 89));
 		startButton.setBorder(BorderFactory.createEtchedBorder());
-        startButton.setIcon(new ImageIcon("buttonImg.png"));
+        startButton.setIcon(new ImageIcon("images/buttonImg.png"));
         startButton.setHorizontalTextPosition(JButton.CENTER);
 		startButton.setVerticalTextPosition(JButton.BOTTOM);
 
@@ -59,18 +56,14 @@ public class StartPage extends JPanel implements ActionListener{
         titlePanel.add(startButton, BorderLayout.SOUTH);
 
         startPanel.add(titlePanel, constraints);
-        //startPanel.add(titleLabel, constraints);
         this.add(startPanel, BorderLayout.EAST);
     }
 
     public void paint(Graphics g) {
-		
-		super.paint(g); // paint background
-		
+		super.paint(g);
 		Graphics2D g2D = (Graphics2D) g;
 
         g2D.drawImage(alchemistImage, 0, 0, null);
-		
 	}
 
     @Override
