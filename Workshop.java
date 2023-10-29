@@ -62,7 +62,9 @@ public class Workshop extends JPanel implements ActionListener{
 
     Message message;
 
-    int numberOfDiscoveredItems = 0;
+    EndPage finalMessage = new EndPage(this);
+
+    int numberOfDiscoveredItems = 29;
 
     Instructions instructions = new Instructions(this);
 
@@ -268,14 +270,27 @@ public class Workshop extends JPanel implements ActionListener{
         layeredPane.repaint();
     }
 
+    public void removeEndPage(){
+        layeredPane.remove(finalMessage);
+        layeredPane.revalidate();
+        layeredPane.repaint();
+    }
+
     private class MyMouseAdapter extends MouseAdapter {
         private JLabel dragLabel = null;
         private int dragLabelWidthDiv2;
         private int dragLabelHeightDiv2;
         private JPanel clickedPanel = null;
 
+        Component[] componentsSecondLayer;
+
         @Override
         public void mousePressed(MouseEvent me) {
+            componentsSecondLayer = layeredPane.getComponentsInLayer(2);
+            if (componentsSecondLayer.length != 0) {
+                return;
+            }
+
             Point slotPoint = SwingUtilities.convertPoint(layeredPane, me.getPoint(), firstShelf);
             clickedPanel = (JPanel) firstShelf.getComponentAt(slotPoint);
             if (clickedPanel == null){
@@ -431,12 +446,12 @@ public class Workshop extends JPanel implements ActionListener{
             numberOfDiscoveredItems++;
 
             if(numberOfDiscoveredItems == 30){
-
+                layeredPane.add(finalMessage, Integer.valueOf(2));
             }
         }
     }
 
-    public void removeMessage(Message message){
+    public void removeMessage(){
         layeredPane.remove(message);
         layeredPane.revalidate();
         layeredPane.repaint();

@@ -3,13 +3,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
-public class Instructions extends JPanel implements ActionListener{
+public class EndPage extends JPanel implements ActionListener{
     JLabel textLabel;
+    ImageIcon confetti;
     JButton closeButton;
     JPanel buttonPanel;
     Workshop mainPage;
 
-    Instructions(Workshop mainPage){
+    EndPage(Workshop mainPage){
         this.mainPage = mainPage;
 
         this.setBounds(425, 185, 350, 255);
@@ -17,14 +18,16 @@ public class Instructions extends JPanel implements ActionListener{
         this.setLayout(new BorderLayout());
         this.setBackground(new Color(69, 37, 12));
 
+        confetti = new ImageIcon("confetti.png");
+
         textLabel = new JLabel();
-        textLabel.setText("<html><br><center>Welcome!<br>Mix Items together by dragging them onto the table and have fun discovering new combinations! For any tips checkout the recipe book!</center></html>");
-        //textLabel.setIcon(item.image);
+        textLabel.setText("<html><br><center>Congratulations!<br>You have discovered all 30 items!</center></html>");
+        textLabel.setIcon(confetti);
 		textLabel.setHorizontalTextPosition(JLabel.CENTER); //set text LEFT,CENTER, RIGHT of imageicon
 		textLabel.setVerticalTextPosition(JLabel.TOP); //set text TOP,CENTER, BOTTOM of imageicon
 		textLabel.setForeground(new Color(250, 219, 195)); //set font color of text
-		textLabel.setFont(new Font("Courier New", Font.PLAIN, 19)); //set font of text
-		//textLabel.setIconTextGap(15); //set gap of text to image
+		textLabel.setFont(new Font("Courier New", Font.PLAIN, 20)); //set font of text
+		textLabel.setIconTextGap(10); //set gap of text to image
 		textLabel.setOpaque(false); //display background color
 		textLabel.setVerticalAlignment(JLabel.CENTER); //set vertical position of icon+text within label
 		textLabel.setHorizontalAlignment(JLabel.CENTER); //set horizontal position of icon+text within label
@@ -58,8 +61,9 @@ public class Instructions extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == closeButton){
             //Workshop mainPage = new Workshop();
-            mainPage.removeInstructions();
+            mainPage.removeEndPage();
             this.setVisible(false);
         }
     }
+
 }

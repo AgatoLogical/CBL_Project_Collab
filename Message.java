@@ -59,8 +59,7 @@ public class Message extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == closeButton){
-            Workshop mainPage = new Workshop();
-            mainPage.removeMessage(this);
+            mainPage.removeMessage();
             this.setVisible(false);
             
         }
